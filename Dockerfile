@@ -1,4 +1,4 @@
-FROM python:3.7.12 AS build
+FROM python:3.7 AS build
 
 WORKDIR /app/
 
@@ -21,7 +21,7 @@ WORKDIR /app
 ENV PYTHONPATH=/app
 
 # Copy all necessary files from the first stage image
-FROM python:3.7.12-slim
+FROM python:3.7-slim
 WORKDIR /app
 COPY --from=build /app/.venv /opt/venv
 COPY --from=build /app /app
