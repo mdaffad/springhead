@@ -1,13 +1,14 @@
 [tool.poetry]
 name = "springhead"
 version = "0.0.1"
-description = "Clustering Framework for Risingwave Singularity Data"
+description = "Clustering Framework for Faust Streaming"
 authors = ["Muhammad Daffa Dinaya <13518141@std.stei.itb.ac.id>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
 pre-commit = "^2.19.0"
 aiokafka = "^0.7.2"
+faust-streaming = "^0.8.6"
 
 [tool.poetry.dev-dependencies]
 

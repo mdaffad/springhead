@@ -24,10 +24,3 @@ services:
     ports:
       - "9092:9092"
       - "9644:9644"
-
-  stream:
-    image: ghcr.io/singularity-data/risingwave:v0.1.10
-    command: playground
-    ports:
-    - 5691:5691
-    - 4566:4566
