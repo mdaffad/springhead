@@ -22,7 +22,7 @@ repos:
     hooks:
       - id: flake8
         name: Run flake8
-        entry: bash -c "flake8"
+        entry: bash -c "flake8 --max-line-length=88"
         language_version: python3.7
 
 default_language_version:

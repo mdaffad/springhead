@@ -1,0 +1,11 @@
+{
+    "record": {
+        "email": {
+            "type_def": "str"
+        },
+        "age": {
+            "type_def": "int",
+            "default": "asd"
+        }
+    }
+}
