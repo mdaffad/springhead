@@ -8,7 +8,6 @@ authors = ["Muhammad Daffa Dinaya <13518141@std.stei.itb.ac.id>"]
 python = "^3.9"
 pre-commit = "^2.19.0"
 aiokafka = "^0.7.2"
-faust-streaming = {extras = ["eventloop"], version = "^0.8.6"}
 scikit-learn = "^1.1.2"
 
 [tool.poetry.dev-dependencies]
