@@ -1,5 +1,7 @@
 from logging import getLogger
 
+from pydantic.env_settings import BaseSettings
+
 logger = getLogger(__name__)
 
 
@@ -20,3 +22,12 @@ class Reader:
             logger.info(message)
 
     pass
+
+
+class Settings(BaseSettings):
+    model_path: str = ""
+    config_path: str = ""
+    module_path: str = ""
+
+
+settings = Settings()
