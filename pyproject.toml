@@ -6,12 +6,12 @@ authors = ["Muhammad Daffa Dinaya <13518141@std.stei.itb.ac.id>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pre-commit = "^2.19.0"
 scikit-learn = "^1.1.2"
 fastapi = "^0.81.0"
 apache-flink-statefun = "^3.2.0"
 
 [tool.poetry.dev-dependencies]
+pre-commit = "^2.19.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -6,7 +6,7 @@ from springhead.models import ModelLoader
 
 @dataclass
 class Bootstrap:
-    model: Any
+    text_model: Any
 
 
 async def bootstrap(model: ModelLoader = ModelLoader("")):
