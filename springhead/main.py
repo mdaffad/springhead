@@ -32,5 +32,5 @@ async def startup():
 
     logger = logging.getLogger(__name__)
     app.state.bootstrap: Bootstrap = await bootstrap()
-    logger.info("Boostrap is done")
+    logger.info("Bootstrap is done")
     app.include_router(main_router)
