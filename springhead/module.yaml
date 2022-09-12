@@ -9,7 +9,7 @@ kind: io.statefun.kafka.v1/ingress
 spec:
   id: com.example/my-ingress
   address: redpanda:9092
-  consumerGroupId: my-consumer-group
+  consumerGroupId: springhead-group
   topics:
     - topic: message-topic
       valueType: io.statefun.types/string
