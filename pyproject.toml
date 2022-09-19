@@ -11,6 +11,7 @@ fastapi = "^0.81.0"
 apache-flink-statefun = "^3.2.0"
 uvicorn = "^0.18.3"
 gunicorn = "^20.1.0"
+river = "^0.13.0"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.19.0"
