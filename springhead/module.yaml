@@ -5,6 +5,13 @@ spec:
   transport:
     type: io.statefun.transports.v1/async
 ---
+kind: io.statefun.endpoints.v2/http
+spec:
+  functions: springhead/*
+  urlPathTemplate: http://springhead:8000/statefun
+  transport:
+    type: io.statefun.transports.v1/async
+---
 kind: io.statefun.kafka.v1/ingress
 spec:
   id: com.example/my-ingress

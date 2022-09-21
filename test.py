@@ -16,6 +16,7 @@ for sentence in corpus:
         tfidf.n = n
     tfidf = tfidf.learn_one(sentence)
     print(tfidf.transform_one(sentence))
+
     dfs = tfidf.dfs
     n = tfidf.n
     print(tfidf.dfs)

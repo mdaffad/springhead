@@ -1,9 +1,12 @@
 import logging
 
 from river.feature_extraction import TFIDF
-from statefun import Context, Message
+from statefun import Context, Message, message_builder
 
-from springhead.schemas import SPRINGHEAD_TEXT_REQUEST_TYPE
+from springhead.schemas import (
+    SPRINGHEAD_POST_PREPROCESS_REQUEST_TYPE,
+    SPRINGHEAD_TEXT_REQUEST_TYPE,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -20,23 +23,27 @@ async def vectorize(context: Context, message: Message):
     text = message.as_type(SPRINGHEAD_TEXT_REQUEST_TYPE)
 
     tf_idf = tf_idf.learn_one(text)
-    print(tf_idf.transform_one(text))
+
     # Update docs storage
     context.storage.dfs = dict(tf_idf.dfs)
     context.storage.n = tf_idf.n
 
-    # enrich the request with the number of vists.
-    # request = message.as_type(SPRINGHEAD_TEXT_REQUEST_TYPE)
-    # request["visits"] = visits
+    request = message.as_type(SPRINGHEAD_POST_PREPROCESS_REQUEST_TYPE)
+    request["tf_idf"] = dict(tf_idf.transform_one(text))
 
-    # next, we will forward a message to a special greeter function,
-    # that will compute a super-doper-personalized greeting based on the
-    # number of visits that this person has.
-    # context.send(
-    #     message_builder(
-    #         target_typename="example/greeter",
-    #         target_id=request["name"],
-    #         value=request,
-    #         value_type=GREET_REQUEST_TYPE,
-    #     )
-    # )
+    # TODO: define what id used for in this method => maybe target/version model
+
+    context.send(
+        message_builder(
+            target_typename="springhead/cluster",
+            target_id=request["name"],
+            value=request,
+            value_type=SPRINGHEAD_POST_PREPROCESS_REQUEST_TYPE,
+        )
+    )
+
+
+async def cluster(context: Context, message: Message):
+    request = message.as_type(SPRINGHEAD_POST_PREPROCESS_REQUEST_TYPE)
+    tf_idf = request["tf_idf"]
+    tf_idf

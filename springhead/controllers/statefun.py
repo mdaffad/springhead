@@ -4,17 +4,23 @@ from fastapi import APIRouter, Request, Response
 from statefun import RequestReplyHandler, StatefulFunctions
 
 from .greet import greeter
-from .text import vectorize
+from .text import cluster, vectorize
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-FUNCTIONS_MAPPER = {"example/greeter": (greeter,), "springhead/vectorize": (vectorize,)}
+FUNCTIONS_MAPPER = {
+    "example/greeter": (greeter,),
+    "springhead/vectorize": (vectorize,),
+    "springhead/cluster": (cluster,),
+}
+
 
 functions = StatefulFunctions()
 
 for typename, function in FUNCTIONS_MAPPER.items():
     functions.register(typename, *function)
+
 
 handler = RequestReplyHandler(FUNCTIONS_MAPPER)
 
