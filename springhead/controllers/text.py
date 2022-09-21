@@ -12,6 +12,9 @@ logger = logging.getLogger(__name__)
 
 
 async def vectorize(context: Context, message: Message):
+    # NOTE: context is scoped for current
+    # address(context.address.typename, context.address.id)
+    # Read on flink statefun playground
     document_counter = context.storage.dfs or {}
     document_number = context.storage.n or 0
 
