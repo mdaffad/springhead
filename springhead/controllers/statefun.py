@@ -10,7 +10,7 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 FUNCTIONS_MAPPER = {
-    "example/greeter": (greeter,),
+    "springhead/greeter": (greeter,),
     "springhead/vectorize": (vectorize,),
     "springhead/cluster": (cluster,),
 }
@@ -25,7 +25,7 @@ for typename, function in FUNCTIONS_MAPPER.items():
 handler = RequestReplyHandler(FUNCTIONS_MAPPER)
 
 
-@router("/")
+@router.post("/")
 async def handle(request: Request):
     request.receive
     req = await request.body()

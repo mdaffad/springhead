@@ -1,8 +1,11 @@
+import logging
 from asyncio import sleep
 
-from statefun import egress_message_builder
+from statefun import StringType, egress_message_builder
 
-from springhead.schemas import GREET_EGRESS_RECORD_TYPE, GREET_REQUEST_TYPE
+from springhead.schemas import GREET_EGRESS_RECORD_TYPE
+
+logger = logging.getLogger(__name__)
 
 
 async def compute_fancy_greeting(name: str, seen: int):
@@ -26,11 +29,13 @@ async def compute_fancy_greeting(name: str, seen: int):
 
 
 async def greeter(context, message):
-    request = message.as_type(GREET_REQUEST_TYPE)
-    person_name = request["name"]
-    visits = request["visits"]
+    logger.error("GET IN THE GREETER")
+    request = message.as_type(StringType)
 
-    greeting = await compute_fancy_greeting(person_name, visits)
+    person_name = request
+    logger.error(person_name)
+
+    greeting = person_name
 
     egress_record = {"topic": "greetings", "payload": greeting}
 
