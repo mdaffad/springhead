@@ -25,7 +25,7 @@ for typename, function in FUNCTIONS_MAPPER.items():
 handler = RequestReplyHandler(FUNCTIONS_MAPPER)
 
 
-@router.post("/")
+@router.post("")
 async def handle(request: Request):
     request.receive
     req = await request.body()

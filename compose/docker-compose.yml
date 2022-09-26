@@ -2,20 +2,27 @@ version: '3'
 
 services:
   redpanda:
-    image: vectorized/redpanda:v22.1.4-amd64
+    build: 
+      dockerfile: dockerfiles/redpanda.dockerfile
+      context: ..
     command:
-      - redpanda start
-      - --smp 1
-      - --memory 512M
-      - --overprovisioned
-      - --set redpanda.default_topic_replications=1
-      - --set redpanda.auto_create_topics_enabled=true
-      - --kafka-addr INSIDE://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
-      - --advertise-kafka-addr INSIDE://redpanda:29092,OUTSIDE://redpanda:9092
-      - --pandaproxy-addr 0.0.0.0:8089
-      - --advertise-pandaproxy-addr redpanda:8089
+      - redpanda
+      - start
+      - "--smp"
+      - "4"
+      - "--reserve-memory"
+      - 0M
+      - "--memory"
+      - 4G
+      - "--overprovisioned"
+      - "--node-id"
+      - "0"
+      - "--check=false"
+      - "--kafka-addr"
+      - "PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092"
+      - "--advertise-kafka-addr"
+      - "PLAINTEXT://redpanda:29092,OUTSIDE://localhost:9092"
     ports:
-      - "8089:8089"
       - "9092:9092"
       - "9644:9644"
   
