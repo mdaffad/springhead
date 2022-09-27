@@ -1,7 +1,7 @@
 import logging
 from asyncio import sleep
 
-from statefun import StringType, egress_message_builder
+from statefun import StringType, kafka_egress_message
 
 from springhead.schemas import GREET_EGRESS_RECORD_TYPE
 
@@ -40,8 +40,10 @@ async def greeter(context, message):
     egress_record = {"topic": "greetings", "payload": greeting}
 
     context.send_egress(
-        egress_message_builder(
-            target_typename="io.statefun.playground/egress",
+        kafka_egress_message(
+            typename="com.example/my-egress",
+            topic="cluster",
+            key="test",
             value=egress_record,
             value_type=GREET_EGRESS_RECORD_TYPE,
         )

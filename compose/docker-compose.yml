@@ -38,6 +38,8 @@ services:
       - "./scripts/start-reload.sh"
     ports:
       - "8888:80"
+    volumes:
+      - ../springhead:/app/springhead
     env_file:
       - ../env/.env
   

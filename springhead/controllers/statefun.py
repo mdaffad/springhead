@@ -22,13 +22,13 @@ for typename, function in FUNCTIONS_MAPPER.items():
     functions.register(typename, *function)
 
 
-handler = RequestReplyHandler(FUNCTIONS_MAPPER)
+handler = RequestReplyHandler(functions)
 
 
 @router.post("")
 async def handle(request: Request):
-    request.receive
     req = await request.body()
+    logger.info(req)
     res = await handler.handle_async(req)
     return Response(
         res,
