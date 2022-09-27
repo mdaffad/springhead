@@ -79,22 +79,3 @@ async def cluster(context: Context, message: Message):
         function: river.cluster
         model: './river-cluster.pickle'
 """
-
-"""
-LOG error
-2022-09-24 11:49:44
-java.lang.IllegalStateException: The io.statefun.kafka.v1/ingress ingress requires a UTF-8 key set for each record.
-	at org.apache.flink.statefun.flink.io.kafka.binders.ingress.v1.RoutableKafkaIngressDeserializer.requireNonNullKey(RoutableKafkaIngressDeserializer.java:70)
-	at org.apache.flink.statefun.flink.io.kafka.binders.ingress.v1.RoutableKafkaIngressDeserializer.deserialize(RoutableKafkaIngressDeserializer.java:48)
-	at org.apache.flink.statefun.flink.io.kafka.binders.ingress.v1.RoutableKafkaIngressDeserializer.deserialize(RoutableKafkaIngressDeserializer.java:29)
-	at org.apache.flink.statefun.flink.io.kafka.KafkaDeserializationSchemaDelegate.deserialize(KafkaDeserializationSchemaDelegate.java:46)
-	at org.apache.flink.streaming.connectors.kafka.KafkaDeserializationSchema.deserialize(KafkaDeserializationSchema.java:79)
-	at org.apache.flink.streaming.connectors.kafka.internals.KafkaFetcher.partitionConsumerRecordsHandler(KafkaFetcher.java:179)
-	at org.apache.flink.streaming.connectors.kafka.internals.KafkaFetcher.runFetchLoop(KafkaFetcher.java:142)
-	at org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumerBase.run(FlinkKafkaConsumerBase.java:826)
-	at org.apache.flink.streaming.api.operators.StreamSource.run(StreamSource.java:110)
-	at org.apache.flink.streaming.api.operators.StreamSource.run(StreamSource.java:67)
-	at org.apache.flink.streaming.runtime.tasks.SourceStreamTask$LegacySourceFunctionThread.run(SourceStreamTask.java:323)
-
-TODO: Maybe there are issue on deserializer for TextRequest
-"""
