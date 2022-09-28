@@ -33,7 +33,7 @@ async def greeter(context, message):
     request = message.as_type(StringType)
 
     person_name = request
-    logger.error(person_name)
+    logger.debug(context.storage)
 
     greeting = person_name
 

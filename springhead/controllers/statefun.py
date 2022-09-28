@@ -9,6 +9,7 @@ from .text import cluster, vectorize
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
+# enable dynamic routing
 FUNCTIONS_MAPPER = {
     "springhead/greeter": (greeter,),
     "springhead/vectorize": (vectorize,),
