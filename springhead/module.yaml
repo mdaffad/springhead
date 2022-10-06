@@ -7,27 +7,14 @@ spec:
 ---
 kind: io.statefun.kafka.v1/ingress
 spec:
-  id: springhead/greeter
+  id: springhead/vectorize
   address: redpanda:29092
   consumerGroupId: springhead-group
   topics:
     - topic: message-topic
       valueType: io.statefun.types/string
       targets:
-        - springhead/greeter
-# ingresses:
-      # - ingress:
-      #     meta:
-      #       type: statefun.kafka.io/ingress
-      #       id: example/names
-      #     spec:
-      #       address: kafka-broker:9092
-      #       consumerGroupId: my-group-id
-      #       topics:
-      #         - topic: names
-      #           valueType: io.statefun.types/string
-      #           targets:
-      #             - example/greeter
+        - springhead/vectorize
 ---
 kind: io.statefun.kafka.v1/egress
 spec:
