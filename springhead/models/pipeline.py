@@ -1,19 +1,43 @@
-from typing import Callable, Dict
+from __future__ import annotations
 
-from pydantic import BaseModel
+from typing import Callable, Dict, List
+
+from pydantic.dataclasses import dataclass
+from statefun import StatefulFunctions
+
+from .process import Process
 
 
-class Pipeline(BaseModel):
-    processes: Dict[str, Callable]
+class PipelineException(Exception):
+    pass
 
-    def process(self, process_id: str) -> Callable:  # pragma: nocover
+
+@dataclass
+class Pipeline:
+    processes: Dict[str, Process] = {}
+    stateful_functions: StatefulFunctions = StatefulFunctions()
+
+    def process(self, typename: str) -> Callable:
         def decorator(func: Callable) -> Callable:
-            self.register_process(process_id, func)
+            self.register_process(typename, func)
             return func
 
         return decorator
 
-    def register_process(self, process_id: str, process: Callable):
-        self.processes[process_id] = process
+    def register_process(self, process: Process):
+        if process.typename in self.processes.keys():
+            raise PipelineException("process typename is not unique")
+        self.processes[process.typename] = process
+        self.stateful_functions.register(process.typename, process.func, process.specs)
 
-    pass
+
+class PipelineBuilder:
+    @staticmethod
+    def build(pipeline: Pipeline = None, processes: List[Process] = []) -> Pipeline:
+        if not pipeline:
+            pipeline = Pipeline()
+
+        for process in processes:
+            pipeline.register_process(process)
+
+        return pipeline

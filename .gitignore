@@ -1,7 +1,6 @@
 venv
 .venv
 .vscode
-.env
 .pyc
 
 # Byte-compiled / optimized / DLL files
@@ -126,9 +125,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
 .venv
-env/
 venv/
 ENV/
 env.bak/

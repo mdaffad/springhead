@@ -5,9 +5,10 @@ from fastapi import FastAPI
 from .controllers import main_router
 from .core import Bootstrap, bootstrap, settings
 
-app = FastAPI()
-
 logger = logging.getLogger()
+
+app = FastAPI()
+app.include_router(main_router)
 
 
 def init_logger(level):
@@ -23,16 +24,8 @@ def init_logger(level):
 
 @app.on_event("startup")
 async def startup():
-    """
-    State()
-    An object that can be used to store arbitrary state.
-    Used for `request.state` and `app.state`.
-    """
     init_logger(settings.log_level)
 
     logger = logging.getLogger(__name__)
     app.state.bootstrap: Bootstrap = await bootstrap()
     logger.info("Bootstrap is done")
-
-
-app.include_router(main_router)
