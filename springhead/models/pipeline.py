@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Callable, Dict, List
+from typing import Dict, List
 
 from pydantic.dataclasses import dataclass
 from statefun import StatefulFunctions
@@ -16,13 +16,6 @@ class PipelineException(Exception):
 class Pipeline:
     processes: Dict[str, Process] = {}
     stateful_functions: StatefulFunctions = StatefulFunctions()
-
-    def process(self, typename: str) -> Callable:
-        def decorator(func: Callable) -> Callable:
-            self.register_process(typename, func)
-            return func
-
-        return decorator
 
     def register_process(self, process: Process):
         if process.typename in self.processes.keys():
