@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
 from enum import Enum
 from typing import Any, Callable, List, Optional
 
@@ -20,8 +20,9 @@ from springhead.schemas import SPRINGHEAD_TEXT_EGRESS_RECORD_TYPE
 
 @dataclass
 class Process(ABCMeta):
+    _type_process: ProcessType
     typename: str
-    stateful_function: Callable[[Context, Message], None]
+    func: Callable[[Context, Message, Process], None]
     source_type_value: Type
     target_type_value: Type
     model_path: Optional[FilePath] = None
@@ -48,13 +49,14 @@ class Process(ABCMeta):
                 )
             )
 
-    @abstractmethod
     def inject_process_dependency(self):
-        raise NotImplementedError
+        return self
 
-    @abstractmethod
-    def wrapper_statefun(self):
-        raise NotImplementedError
+    def __post_init__(self):
+        def wrapped_springhead_process(context: Context, message: Message):
+            return self.func(context, message, self.inject_process_dependency())
+
+        self.stateful_function = wrapped_springhead_process
 
 
 class ProcessType(Enum):
@@ -69,18 +71,3 @@ class ProcessType(Enum):
     @classmethod
     def option_to_type(cls, option: str):
         return cls(option)
-
-
-@dataclass
-class SpringheadProcess(Process, ABCMeta):
-    _type_process: ProcessType
-    func: Callable[[Context, Message, Process], None]
-
-    def inject_process_dependency(self):
-        return self
-
-    def __post_init__(self):
-        def wrapped_springhead_process(context: Context, message: Message):
-            return self.func(context, message, self.inject_process_dependency())
-
-        self.stateful_function = wrapped_springhead_process

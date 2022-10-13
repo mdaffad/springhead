@@ -1,8 +1,8 @@
 from pydantic.dataclasses import dataclass
 
-from .process import ProcessType, SpringheadProcess
+from .process import Process, ProcessType
 
 
 @dataclass
-class TokenizationProcess(SpringheadProcess):
+class TokenizationProcess(Process):
     _type_process: ProcessType = ProcessType.TOKENIZATION

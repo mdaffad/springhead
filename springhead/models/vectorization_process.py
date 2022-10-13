@@ -2,7 +2,7 @@ from enum import Enum
 
 from pydantic.dataclasses import dataclass
 
-from .process import ProcessType, SpringheadProcess
+from .process import Process, ProcessType
 
 
 class VectorizationType(Enum):
@@ -16,6 +16,6 @@ class VectorizationType(Enum):
 
 
 @dataclass
-class VectorizationProcess(SpringheadProcess):
+class VectorizationProcess(Process):
     _type_process: ProcessType = ProcessType.VECTORIZATION
     vectorization_type: VectorizationType = VectorizationType.BAG_OF_WORDS
