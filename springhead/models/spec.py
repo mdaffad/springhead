@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
 
-class SpringheadSpecification:
+class Specification:
     def __init__(self) -> None:
         self.path = ""
         self.spec = None

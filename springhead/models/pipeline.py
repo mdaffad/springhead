@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import Dict
 
 from pydantic.dataclasses import dataclass
 from statefun import StatefulFunctions
@@ -21,16 +21,9 @@ class Pipeline:
         if process.typename in self.processes.keys():
             raise PipelineException("process typename is not unique")
         self.processes[process.typename] = process
-        self.stateful_functions.register(process.typename, process.func, process.specs)
+        self.stateful_functions.register(
+            process.typename, process.stateful_function, process.specs
+        )
 
-
-class PipelineBuilder:
-    @staticmethod
-    def build(pipeline: Pipeline = None, processes: List[Process] = []) -> Pipeline:
-        if not pipeline:
-            pipeline = Pipeline()
-
-        for process in processes:
-            pipeline.register_process(process)
-
-        return pipeline
+    def show_config(self):
+        pass

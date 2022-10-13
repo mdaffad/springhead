@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from abc import ABCMeta, abstractmethod
+from enum import Enum
 from typing import Any, Callable, List, Optional
 
 from pydantic import FilePath
@@ -17,9 +18,10 @@ from statefun import (
 from springhead.schemas import SPRINGHEAD_TEXT_EGRESS_RECORD_TYPE
 
 
+@dataclass
 class Process(ABCMeta):
     typename: str
-    func: Callable
+    stateful_function: Callable[[Context, Message], None]
     source_type_value: Type
     target_type_value: Type
     model_path: Optional[FilePath] = None
@@ -47,10 +49,6 @@ class Process(ABCMeta):
             )
 
     @abstractmethod
-    def receive(self):
-        pass
-
-    @abstractmethod
     def inject_process_dependency(self):
         raise NotImplementedError
 
@@ -59,7 +57,7 @@ class Process(ABCMeta):
         raise NotImplementedError
 
 
-class ProcessType:
+class ProcessType(Enum):
     VECTORIZATION = "vectorization"
     CLUSTERING = "clustering"
     TOKENIZATION = "tokenization"
@@ -67,6 +65,10 @@ class ProcessType:
     NORMALIZATION = "normalization"
     FILTERING = "filtering"
     CUSTOM = "custom"
+
+    @classmethod
+    def option_to_type(cls, option: str):
+        return cls(option)
 
 
 @dataclass
@@ -77,14 +79,8 @@ class SpringheadProcess(Process, ABCMeta):
     def inject_process_dependency(self):
         return self
 
-    @abstractmethod
-    def wrapper_springhead_process(self):
+    def __post_init__(self):
         def wrapped_springhead_process(context: Context, message: Message):
             return self.func(context, message, self.inject_process_dependency())
 
-        return wrapped_springhead_process
-
-
-@dataclass
-class VectorizationProcess(SpringheadProcess):
-    _type_process: ProcessType = ProcessType.VECTORIZATION
+        self.stateful_function = wrapped_springhead_process
