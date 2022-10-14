@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from abc import ABCMeta
-from enum import Enum
 from typing import Any, Callable, List, Optional
 
 from pydantic import FilePath
@@ -16,6 +15,7 @@ from statefun import (
 )
 
 from springhead.schemas import SPRINGHEAD_TEXT_EGRESS_RECORD_TYPE
+from springhead.utils import CustomEnumType
 
 
 @dataclass
@@ -59,7 +59,7 @@ class Process(ABCMeta):
         self.stateful_function = wrapped_springhead_process
 
 
-class ProcessType(Enum):
+class ProcessType(CustomEnumType):
     VECTORIZATION = "vectorization"
     CLUSTERING = "clustering"
     TOKENIZATION = "tokenization"
@@ -67,7 +67,3 @@ class ProcessType(Enum):
     NORMALIZATION = "normalization"
     FILTERING = "filtering"
     CUSTOM = "custom"
-
-    @classmethod
-    def option_to_type(cls, option: str):
-        return cls(option)

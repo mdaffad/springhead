@@ -1,18 +1,14 @@
-from enum import Enum
-
 from pydantic.dataclasses import dataclass
+
+from springhead.utils import CustomEnumType
 
 from .process import Process, ProcessType
 
 
-class VectorizationType(Enum):
+class VectorizationType(CustomEnumType):
     BAG_OF_WORDS = "bag_of_words"
     TF_IDF = "tf_idf"
     WORD2VEC = "word2vec"
-
-    @classmethod
-    def option_to_type(cls, option: str):
-        return cls(option)
 
 
 @dataclass
