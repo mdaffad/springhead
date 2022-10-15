@@ -35,7 +35,7 @@ class Process(ABCMeta):
     func: Callable[[Context, Message, Process], None]
     source_type_value: Type
     target_type_value: Type
-    _type_process: ProcessType = ProcessType.CUSTOM
+    type_process: ProcessType = ProcessType.CUSTOM
     model_path: Optional[FilePath] = None
     source_typename: Optional[str] = None
     target_typename: Optional[str] = None

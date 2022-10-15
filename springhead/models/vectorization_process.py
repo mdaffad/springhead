@@ -15,7 +15,7 @@ class VectorizationType(CustomEnumType):
 
 @dataclass
 class VectorizationProcess(Process):
-    _type_process: ProcessType = field(default=ProcessType.VECTORIZATION)
+    type_process: ProcessType = field(default=ProcessType.VECTORIZATION)
     vectorization_type: VectorizationType = field(
         default=VectorizationType.BAG_OF_WORDS
     )
