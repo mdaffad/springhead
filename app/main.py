@@ -2,8 +2,8 @@ import logging
 
 from fastapi import FastAPI
 
-from .controllers import main_router
-from .core import Bootstrap, bootstrap, settings
+from springhead.controllers import main_router
+from springhead.core import Bootstrap, bootstrap, settings
 
 logger = logging.getLogger()
 

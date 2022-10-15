@@ -1,17 +1,17 @@
 from dataclasses import dataclass
-from typing import Any
 
-from springhead.models import ModelLoader, Pipeline
+from springhead.models import Pipeline
 from springhead.service_layer import PipelineBuilder
 
 
 @dataclass
 class Bootstrap:
-    text_model: Any
     pipeline: Pipeline
 
 
-async def bootstrap(
-    model: ModelLoader = ModelLoader(""), pipeline: Pipeline = PipelineBuilder.build()
-):
-    return Bootstrap(model)
+async def bootstrap() -> None:
+    # TODO: read specification
+    # TODO: build process by specification: inject specification to ProcessBuilder
+    # TODO: register process to pipeline: inject Process to Pipeline
+    pipeline = PipelineBuilder.build()
+    return Bootstrap(pipeline)

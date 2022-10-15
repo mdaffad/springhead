@@ -4,7 +4,7 @@ from typing import Any, Dict
 class Specification:
     def __init__(self) -> None:
         self.path = ""
-        self.spec = None
+        self.specification = None
 
     def _is_path_valid(self, path: str) -> bool:
         return True
@@ -27,4 +27,4 @@ class Specification:
         if not self.is_spec_file_valid(yml_config):
             raise Exception("error")
 
-        self.spec = yml_config
+        self.specification = yml_config

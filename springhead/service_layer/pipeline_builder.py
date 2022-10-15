@@ -4,6 +4,10 @@ from springhead.models import Pipeline, Process
 
 
 class PipelineBuilder:
+    """
+    Inject Process to Pipeline
+    """
+
     @staticmethod
     def build(pipeline: Pipeline = None, processes: List[Process] = []) -> Pipeline:
         if not pipeline:

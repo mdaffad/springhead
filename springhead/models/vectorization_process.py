@@ -1,3 +1,5 @@
+from dataclasses import field
+
 from pydantic.dataclasses import dataclass
 
 from springhead.utils import CustomEnumType
@@ -13,5 +15,7 @@ class VectorizationType(CustomEnumType):
 
 @dataclass
 class VectorizationProcess(Process):
-    _type_process: ProcessType = ProcessType.VECTORIZATION
-    vectorization_type: VectorizationType = VectorizationType.BAG_OF_WORDS
+    _type_process: ProcessType = field(default=ProcessType.VECTORIZATION)
+    vectorization_type: VectorizationType = field(
+        default=VectorizationType.BAG_OF_WORDS
+    )

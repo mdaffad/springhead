@@ -31,6 +31,7 @@ COPY --from=builder /opt/venv /opt/venv
 
 WORKDIR /app/
 
+COPY app ./app
 COPY springhead ./springhead
 COPY scripts ./scripts
 
