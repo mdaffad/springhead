@@ -27,7 +27,7 @@ class Pipeline:
             raise PipelineException("process typename is not unique")
         self.processes[process.typename] = process
         self.stateful_functions.register(
-            process.typename, process.stateful_function, process.specs
+            process.typename, process.stateful_function, process.value_specs
         )
 
     def show_config(self):

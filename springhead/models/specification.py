@@ -1,30 +1,31 @@
-from typing import Any, Dict
+from dataclasses import field
+from typing import List, Optional
+
+from pydantic import FilePath
+from pydantic.dataclasses import dataclass
+from statefun import Type
+
+from springhead.utils.dataclass_config import Config
+
+from .process import ProcessType
 
 
+@dataclass(config=Config)
+class ValueSpecSchema:
+    name: str
+    _type: str
+
+
+@dataclass(config=Config)
 class Specification:
-    def __init__(self) -> None:
-        self.path = ""
-        self.specification = None
+    typename: str
+    type_process: ProcessType
+    source_type_value: Type
+    source_typename: Optional[str] = None
+    target_type_value: Type = None
+    target_typename: Optional[str] = None
+    model_path: Optional[FilePath] = None
+    value_specs: List[ValueSpecSchema] = field(default_factory=list)
 
-    def _is_path_valid(self, path: str) -> bool:
-        return True
-
-    def is_spec_file_valid(self, yml_dict: Dict[str, Any]) -> bool:
-        return True
-
-    def _read_yml_file(self, path):
+    def __post_init__(self):
         pass
-
-    def read_spec_file(self, path):
-        return self._read_spec_file(path)
-
-    def _read_spec_file(self, path):
-        if not self._is_path_valid(self):
-            raise Exception("error")
-
-        yml_config = self._read_yml_file(path)
-
-        if not self.is_spec_file_valid(yml_config):
-            raise Exception("error")
-
-        self.specification = yml_config

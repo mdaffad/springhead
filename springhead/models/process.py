@@ -34,12 +34,12 @@ class Process(ABCMeta):
     typename: str
     func: Callable[[Context, Message, Process], None]
     source_type_value: Type
-    target_type_value: Type
+    source_typename: Optional[str] = None
+    target_type_value: Type = None
+    target_typename: Optional[str] = None
     type_process: ProcessType = ProcessType.CUSTOM
     model_path: Optional[FilePath] = None
-    source_typename: Optional[str] = None
-    target_typename: Optional[str] = None
-    specs: List[ValueSpec] = field(default_factory=list)
+    value_specs: List[ValueSpec] = field(default_factory=list)
 
     def send(self, target_id: str, value: Any, context: Context):
         if self.target_typename:
