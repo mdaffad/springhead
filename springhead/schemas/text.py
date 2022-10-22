@@ -11,6 +11,4 @@ SPRINGHEAD_TEXT_EGRESS_RECORD_TYPE = make_json_type(
 
 SPRINGHEAD_TF_IDF_TYPE = make_json_type(typename="springhead/TFIDF")
 
-SPRINGHEAD_TF_IDF_VALUE_SPEC = ValueSpec(
-    name=SPRINGHEAD_TF_IDF_TYPE.typename, type=SPRINGHEAD_TF_IDF_TYPE
-)
+SPRINGHEAD_TF_IDF_VALUE_SPEC = ValueSpec(name="tf_idf", type=SPRINGHEAD_TF_IDF_TYPE)
