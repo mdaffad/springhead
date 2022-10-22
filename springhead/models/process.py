@@ -37,6 +37,7 @@ class Process(ABCMeta):
     source_typename: Optional[str] = None
     target_type_value: Type = None
     target_typename: Optional[str] = None
+    target_id: str = "v1"
     type_process: ProcessType = ProcessType.CUSTOM
     model_path: Optional[FilePath] = None
     value_specs: List[ValueSpec] = field(default_factory=list)
