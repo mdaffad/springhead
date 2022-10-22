@@ -2,7 +2,7 @@ from river.feature_extraction import TFIDF
 from statefun import Context, Message
 
 from springhead.models import Process
-from springhead.schemas.text import SPRINGHEAD_POST_PREPROCESS_REQUEST_TYPE
+from springhead.schemas import SPRINGHEAD_POST_PREPROCESS_REQUEST_TYPE
 
 
 def bag_of_words(context: Context, message: Message, process: Process) -> None:

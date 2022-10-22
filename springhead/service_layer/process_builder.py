@@ -1,5 +1,5 @@
 from springhead.models import Process, ProcessType, VectorizationType
-from springhead.schemas.text import SPRINGHEAD_TF_IDF_VALUE_SPEC
+from springhead.schemas import SPRINGHEAD_TF_IDF_VALUE_SPEC
 
 from .handlers import bag_of_words, tf_idf, tokenize
 
