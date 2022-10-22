@@ -20,13 +20,15 @@ from springhead.utils import Config, CustomEnumType
 
 
 class ProcessType(CustomEnumType):
-    VECTORIZATION = "vectorization"
+    BAG_OF_WORD = "bag_of_word"
     CLUSTERING = "clustering"
+    CUSTOM = "custom"
+    FILTERING = "filtering"
+    NORMALIZATION = "normalization"
+    TF_IDF = "tf_idf"
     TOKENIZATION = "tokenization"
     TRANSFORMATION = "transformation"
-    NORMALIZATION = "normalization"
-    FILTERING = "filtering"
-    CUSTOM = "custom"
+    WORD2VEC = "word2vec"
 
 
 @dataclass(config=Config)

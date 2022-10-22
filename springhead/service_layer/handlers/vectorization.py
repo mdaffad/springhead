@@ -31,3 +31,7 @@ def tf_idf(context: Context, message: Message, process: Process) -> None:
 
     # TODO: define what id used for in this method => maybe target/version model
     process.send(target_id=process.target_id, value=request, context=context)
+
+
+def word2vec(context: Context, message: Message, process: Process) -> None:
+    pass
