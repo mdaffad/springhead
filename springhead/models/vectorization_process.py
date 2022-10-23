@@ -10,7 +10,7 @@ class BagOfWordProcess(Process):
 
 @dataclass
 class TFIDFProcess(Process):
-    type_process: ProcessType = ProcessType.TF_IDF
+    type_process: ProcessType = ProcessType.TFIDF
 
 
 @dataclass

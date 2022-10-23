@@ -21,11 +21,11 @@ from springhead.utils import Config, CustomEnumType
 
 class ProcessType(CustomEnumType):
     BAG_OF_WORD = "bag_of_word"
-    CLUSTERING = "clustering"
+    CLUSTREAM = "clustream"
     CUSTOM = "custom"
     FILTERING = "filtering"
     NORMALIZATION = "normalization"
-    TF_IDF = "tf_idf"
+    TFIDF = "tfidf"
     TOKENIZATION = "tokenization"
     TRANSFORMATION = "transformation"
     WORD2VEC = "word2vec"

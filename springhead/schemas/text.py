@@ -9,6 +9,8 @@ SPRINGHEAD_TEXT_EGRESS_RECORD_TYPE = make_json_type(
     typename="springhead/TextEgressRecord"
 )
 
-SPRINGHEAD_TF_IDF_TYPE = make_json_type(typename="springhead/TFIDF")
+SPRINGHEAD_TFIDF_TYPE = make_json_type(typename="springhead/TFIDF")
+SPRINGHEAD_TFIDF_TYPE = make_json_type(typename="springhead/TFIDF")
 
-SPRINGHEAD_TF_IDF_VALUE_SPEC = ValueSpec(name="tf_idf", type=SPRINGHEAD_TF_IDF_TYPE)
+
+SPRINGHEAD_TFIDF_VALUE_SPEC = ValueSpec(name="tfidf", type=SPRINGHEAD_TFIDF_TYPE)

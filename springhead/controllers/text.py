@@ -21,21 +21,21 @@ async def vectorize(context: Context, message: Message):
     document_counter = context.storage.dfs or {}
     document_number = context.storage.n or 0
 
-    tf_idf = TFIDF()
+    tfidf = TFIDF()
     if document_counter:
-        tf_idf.dfs = document_counter
-        tf_idf.n = document_number
+        tfidf.dfs = document_counter
+        tfidf.n = document_number
 
     text = message.as_type(SPRINGHEAD_TEXT_REQUEST_TYPE)
 
-    tf_idf = tf_idf.learn_one(text)
+    tfidf = tfidf.learn_one(text)
 
     # Update docs storage
-    context.storage.dfs = dict(tf_idf.dfs)
-    context.storage.n = tf_idf.n
+    context.storage.dfs = dict(tfidf.dfs)
+    context.storage.n = tfidf.n
 
     request = message.as_type(SPRINGHEAD_POST_PREPROCESS_REQUEST_TYPE)
-    request["tf_idf"] = dict(tf_idf.transform_one(text))
+    request["tfidf"] = dict(tfidf.transform_one(text))
 
     # TODO: define what id used for in this method => maybe target/version model
 
@@ -51,9 +51,9 @@ async def vectorize(context: Context, message: Message):
 
 async def cluster(context: Context, message: Message):
     request = message.as_type(SPRINGHEAD_POST_PREPROCESS_REQUEST_TYPE)
-    tf_idf = request["tf_idf"]
+    tfidf = request["tfidf"]
 
-    egress_record = {"topic": "cluster", "payload": tf_idf}
+    egress_record = {"topic": "cluster", "payload": tfidf}
 
     context.send_egress(
         egress_message_builder(

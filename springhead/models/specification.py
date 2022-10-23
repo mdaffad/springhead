@@ -1,3 +1,4 @@
+from dataclasses import asdict
 from typing import List, Optional
 
 from pydantic import DirectoryPath, FilePath
@@ -67,6 +68,9 @@ class Specification:
                 return _type
             else:
                 raise ValueError("source value type is invalid")
+
+    def asdict(self):
+        return asdict(self)
 
 
 class Specifications:
