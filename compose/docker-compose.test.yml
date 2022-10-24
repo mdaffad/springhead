@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  springhead:
+    build:
+      dockerfile: dockerfiles/springhead.dockerfile
+      context: ..
+      args:
+        - INSTALL_DEV=true
+    command: 
+      - "--"
+      - "sh"
+      - "./scripts/start-reload.sh"
+    expose:
+      - "80"
+    volumes:
+      - ../springhead:/app/springhead
+    env_file:
+      - ../env/.env
+
+  statefun:
+    image: apache/flink-statefun-playground:3.2.0-1.0
+    ports:
+      - "8081:8081"
+      - "8090:8090"
+      - "8091:8091"
+    depends_on:
+      - functions
+    volumes:
+      - ../springhead/test_module.yaml:/module.yaml
