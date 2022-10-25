@@ -1,33 +1,17 @@
 import logging
 
-from fastapi import APIRouter, Request, Response
-from statefun import RequestReplyHandler, StatefulFunctions
+from fastapi import APIRouter, Depends, Request, Response
+from statefun import RequestReplyHandler
 
-from .greet import greeter
-from .text import cluster, vectorize
+from .dependencies import get_handler
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
+
 # enable dynamic routing
-FUNCTIONS_MAPPER = {
-    "springhead/greeter": (greeter,),
-    "springhead/vectorize": (vectorize,),
-    "springhead/cluster": (cluster,),
-}
-
-
-functions = StatefulFunctions()
-
-for typename, function in FUNCTIONS_MAPPER.items():
-    functions.register(typename, *function)
-
-
-handler = RequestReplyHandler(functions)
-
-
 @router.post("")
-async def handle(request: Request):
+async def handle(request: Request, handler: RequestReplyHandler = Depends(get_handler)):
     req = await request.body()
     logger.info(req)
     res = await handler.handle_async(req)

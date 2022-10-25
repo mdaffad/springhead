@@ -1,9 +1,12 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 from typing import Dict, Optional
 
+from pydantic import Field
+from pydantic.dataclasses import dataclass
 from statefun import StatefulFunctions
+
+from springhead.utils import Config
 
 from .process import Process
 
@@ -12,9 +15,9 @@ class PipelineException(Exception):
     pass
 
 
-@dataclass
+@dataclass(config=Config)
 class Pipeline:
-    processes: Dict[str, Process] = field(default_factory=dict)
+    processes: Dict[str, Process] = Field(default_factory=dict)
     stateful_functions: StatefulFunctions = StatefulFunctions()
     model_directory: Optional[str] = None
 
@@ -28,3 +31,6 @@ class Pipeline:
 
     def show_config(self):
         pass
+
+    class Config:
+        arbitrary_types_allowed = True

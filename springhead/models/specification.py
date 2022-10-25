@@ -47,8 +47,6 @@ class Specification:
                 self.target_type_value,
                 self.target_type_value_name_dictionary,
             )
-        print(self.target_type_value)
-        print(self.target_typename)
 
         if not (self.target_type_value and self.target_typename) and (
             self.target_type_value or self.target_typename
@@ -72,15 +70,12 @@ class Specification:
             _type == dict and dictiory_name == None
             _type != dict and dictiory_name == Some
             """
-            print(_type)
-            print(dictionary_name)
             raise ValueError(
                 "dictionary must be \
                 followed with source_type_value_name_dictionary"
             )
         else:
             _type = PY_TYPE_TO_WRAPPER_TYPE.get(_type, None)
-            print(_type)
             if _type:
                 return _type
             else:

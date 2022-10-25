@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 import logging
-from typing import Optional, Type
+from typing import Optional
 
 from springhead.models import (
     ClustreamProcess,
@@ -34,7 +36,6 @@ class ProcessBuilder:
     Inject Specification to Process
     """
 
-    # TODO: refactor as one flat key-value ProcessType
     process_type_to_function_mapper = {
         ProcessType.BAG_OF_WORD: (TransformationProcess, bag_of_words, []),
         ProcessType.CLUSTREAM: (ClustreamProcess, clustream, []),
@@ -55,13 +56,14 @@ class ProcessBuilder:
         ) = cls.process_type_to_function_mapper[specification.type_process]
         process = None
         try:
-            implemented_class: Type[Process]
             process = implemented_class(
-                func=implemented_function,
+                function_handler=implemented_function,
                 value_specs=value_specs,
-                **specification.asdict()
+                **specification.asdict(),
             )
         except Exception as e:
-            logger.error(e)
-        finally:
+            logger.error(implemented_class)
+            # logger.error(e)
+            raise e
+        else:
             return process

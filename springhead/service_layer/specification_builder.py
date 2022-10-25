@@ -1,8 +1,7 @@
-from dataclasses import field
 from typing import List
 
 import yaml
-from pydantic import FilePath
+from pydantic import Field, FilePath
 from pydantic.dataclasses import dataclass
 
 from springhead.models import Specification
@@ -13,7 +12,7 @@ from springhead.utils.dataclass_config import Config
 class SpecificationBuilder:
     # Build list of specifications from yml file
     file_path: FilePath
-    specifications: List[Specification] = field(default_factory=list)
+    specifications: List[Specification] = Field(default_factory=list)
 
     def __post_init__(self):
         pass
@@ -28,7 +27,6 @@ class SpecificationBuilder:
         with self.file_path.open("r") as stream:
             try:
                 specifications_file = yaml.safe_load(stream)["specifications"]
-                print(specifications_file)
             except yaml.YAMLError as exc:
                 print(exc)
 

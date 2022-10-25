@@ -1,18 +1,15 @@
-from pydantic.dataclasses import dataclass
+from __future__ import annotations
 
 from .process import Process, ProcessType
 
 
-@dataclass
 class BagOfWordProcess(Process):
     type_process: ProcessType = ProcessType.BAG_OF_WORD
 
 
-@dataclass
 class TFIDFProcess(Process):
     type_process: ProcessType = ProcessType.TFIDF
 
 
-@dataclass
 class Word2VecProcess(Process):
     type_process: ProcessType = ProcessType.WORD2VEC

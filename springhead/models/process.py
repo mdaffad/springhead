@@ -1,11 +1,8 @@
 from __future__ import annotations
 
-from abc import ABCMeta
-from dataclasses import field
 from typing import Any, Callable, List, Optional
 
-from pydantic import FilePath
-from pydantic.dataclasses import dataclass
+from pydantic import BaseModel, Field, FilePath, root_validator
 from statefun import (
     Context,
     Message,
@@ -16,7 +13,7 @@ from statefun import (
 )
 
 from springhead.schemas import SPRINGHEAD_TEXT_EGRESS_RECORD_TYPE
-from springhead.utils import Config, CustomEnumType
+from springhead.utils import CustomEnumType
 
 
 class ProcessType(CustomEnumType):
@@ -31,18 +28,19 @@ class ProcessType(CustomEnumType):
     WORD2VEC = "word2vec"
 
 
-@dataclass(config=Config)
-class Process(ABCMeta):
+# @dataclass(config=Config)
+class Process(BaseModel):
     typename: str
-    func: Callable[[Context, Message, Process], None]
+    function_handler: Callable[[Context, Message, Process], None]
     source_type_value: Type
+    stateful_function: Callable[[Context, Message], None]
     source_typename: Optional[str] = None
     target_type_value: Type = None
     target_typename: Optional[str] = None
     target_id: str = "v1"
     type_process: ProcessType = ProcessType.CUSTOM
     model_path: Optional[FilePath] = None
-    value_specs: List[ValueSpec] = field(default_factory=list)
+    value_specs: List[ValueSpec] = Field(default_factory=list)
 
     def send(self, target_id: str, value: Any, context: Context):
         if self.target_typename:
@@ -66,8 +64,15 @@ class Process(ABCMeta):
     def inject_process_dependency(self):
         return self
 
-    def __post_init__(self):
+    @root_validator(pre=True)
+    def generate_stateful_function(cls, values):
         def wrapped_springhead_process(context: Context, message: Message):
-            return self.func(context, message, self.inject_process_dependency())
+            function_handler = values.get("function_handler")
+            process_dependency = cls.inject_process_dependency()
+            return function_handler(context, message, process_dependency)
 
-        self.stateful_function = wrapped_springhead_process
+        values["stateful_function"] = wrapped_springhead_process
+        return values
+
+    class Config:
+        arbitrary_types_allowed = True
