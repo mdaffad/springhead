@@ -29,7 +29,6 @@ def tfidf(context: Context, message: Message, process: Process) -> None:
     request = message.as_type(SPRINGHEAD_POST_PREPROCESS_REQUEST_TYPE)
     request["tfidf"] = dict(tfidf.transform_one(text))
 
-    # TODO: define what id used for in this method => maybe target/version model
     process.send(target_id=process.target_id, value=request, context=context)
 
 

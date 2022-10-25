@@ -47,8 +47,16 @@ class Specification:
                 self.target_type_value,
                 self.target_type_value_name_dictionary,
             )
+        print(self.target_type_value)
+        print(self.target_typename)
 
-        if not self.target_type_value or not self.target_typename:
+        if not (self.target_type_value and self.target_typename) and (
+            self.target_type_value or self.target_typename
+        ):
+            """
+            self.target_type_value == None and self.target_typename == Some
+            self.target_type_value == Some and self.target_typename == None
+            """
             raise ValueError(
                 "target type value and target typename must be configured together"
             )
@@ -57,13 +65,22 @@ class Specification:
         _type = get_type(self.source_type_value)
         if _type == dict and dictionary_name:
             return make_json_type(dictionary_name)
-        elif _type != dict or not dictionary_name:
+        elif (_type == dict and not dictionary_name) or (
+            _type != dict and dictionary_name
+        ):
+            """
+            _type == dict and dictiory_name == None
+            _type != dict and dictiory_name == Some
+            """
+            print(_type)
+            print(dictionary_name)
             raise ValueError(
                 "dictionary must be \
                 followed with source_type_value_name_dictionary"
             )
         else:
             _type = PY_TYPE_TO_WRAPPER_TYPE.get(_type, None)
+            print(_type)
             if _type:
                 return _type
             else:
