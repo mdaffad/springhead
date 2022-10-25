@@ -62,20 +62,3 @@ async def cluster(context: Context, message: Message):
             value_type=SPRINGHEAD_TEXT_EGRESS_RECORD_TYPE,
         )
     )
-
-
-# TODO:
-# option: add fucntion to templation sub task on flink => dynamic binding for function e.g register function form template
-# define template to pass between function
-# preprocess model
-# follow transformers templating
-
-"""
-    processes:
-    - name: tfidf
-        function: river.tfidf
-        model: './river-tfidf.pickle'
-    - name: cluster
-        function: river.cluster
-        model: './river-cluster.pickle'
-"""

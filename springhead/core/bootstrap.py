@@ -20,9 +20,6 @@ class Bootstrap:
 
 
 async def bootstrap() -> None:
-    # TODO: read specification
-    # TODO: build process by specification: inject specification to ProcessBuilder
-    # TODO: register process to pipeline: inject Process to Pipeline
     specification_builder = SpecificationBuilder("./app/specifications.yml")
     specifications = specification_builder.read_spec_file()
     processes: List[Process] = []

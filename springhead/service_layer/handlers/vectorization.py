@@ -18,6 +18,14 @@ def tfidf(context: Context, message: Message, process: Process) -> None:
         tfidf.dfs = document_counter
         tfidf.n = document_number
 
+    # TODO: Fix this => change to json with {"text": str}
+    # => for simple like state-fun playground
+    # and kafka client
+    # File "/app/./springhead/service_layer/handlers/vectorization.py"
+    # , line 21, in tfidf
+    #   text = message.as_type(process.source_type_value)
+    # File "/opt/venv/lib/python3.9/site-packages/statefun/messages.py"
+    # , line 99, in as_type
     text = message.as_type(process.source_type_value)
 
     tfidf = tfidf.learn_one(text)

@@ -15,7 +15,10 @@ from springhead.models import (
 from springhead.models.normalization_process import NormalizationProcess
 from springhead.models.tokenization_process import TokenizationProcess
 from springhead.models.vectorization_process import Word2VecProcess
-from springhead.schemas import SPRINGHEAD_TFIDF_VALUE_SPEC
+from springhead.schemas import (
+    SPRINGHEAD_DFS_VALUE_SPEC,
+    SPRINGHEAD_N_DOCUMENT_VALUE_SPEC,
+)
 
 from .handlers import (
     bag_of_words,
@@ -41,7 +44,11 @@ class ProcessBuilder:
         ProcessType.CLUSTREAM: (ClustreamProcess, clustream, []),
         ProcessType.FILTERING: (FilteringProcess, filter, []),
         ProcessType.NORMALIZATION: (NormalizationProcess, normalize, []),
-        ProcessType.TFIDF: (TFIDFProcess, tfidf, [SPRINGHEAD_TFIDF_VALUE_SPEC]),
+        ProcessType.TFIDF: (
+            TFIDFProcess,
+            tfidf,
+            [SPRINGHEAD_DFS_VALUE_SPEC, SPRINGHEAD_N_DOCUMENT_VALUE_SPEC],
+        ),
         ProcessType.TOKENIZATION: (TokenizationProcess, tokenize, []),
         ProcessType.TRANSFORMATION: (TransformationProcess, transform, []),
         ProcessType.WORD2VEC: (Word2VecProcess, word2vec, []),
