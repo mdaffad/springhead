@@ -2,7 +2,6 @@ from river.feature_extraction import TFIDF
 from statefun import Context, Message
 
 from springhead.models import Process
-from springhead.schemas import SPRINGHEAD_POST_PREPROCESS_REQUEST_TYPE
 
 
 def bag_of_words(context: Context, message: Message, process: Process) -> None:
@@ -18,23 +17,16 @@ def tfidf(context: Context, message: Message, process: Process) -> None:
         tfidf.dfs = document_counter
         tfidf.n = document_number
 
-    # TODO: Fix this => change to json with {"text": str}
-    # => for simple like state-fun playground
-    # and kafka client
-    # File "/app/./springhead/service_layer/handlers/vectorization.py"
-    # , line 21, in tfidf
-    #   text = message.as_type(process.source_type_value)
-    # File "/opt/venv/lib/python3.9/site-packages/statefun/messages.py"
-    # , line 99, in as_type
-    text = message.as_type(process.source_type_value)["text"]
+    text = message.as_type(process.source_type_value)
 
+    print(text)
     tfidf = tfidf.learn_one(text)
 
     # Update docs storage
     context.storage.dfs = dict(tfidf.dfs)
     context.storage.n = tfidf.n
 
-    request = message.as_type(SPRINGHEAD_POST_PREPROCESS_REQUEST_TYPE)
+    request = {}
     request["tfidf"] = dict(tfidf.transform_one(text))
 
     process.send(target_id=process.target_id, value=request, context=context)

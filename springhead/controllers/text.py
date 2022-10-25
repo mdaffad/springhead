@@ -3,7 +3,13 @@
 import logging
 
 from river.feature_extraction import TFIDF
-from statefun import Context, Message, egress_message_builder, message_builder
+from statefun import (
+    Context,
+    Message,
+    egress_message_builder,
+    kafka_egress_message,
+    message_builder,
+)
 
 from springhead.schemas import (
     SPRINGHEAD_POST_PREPROCESS_REQUEST_TYPE,
@@ -56,8 +62,8 @@ async def cluster(context: Context, message: Message):
     egress_record = {"topic": "cluster", "payload": tfidf}
 
     context.send_egress(
-        egress_message_builder(
-            target_typename="io.statefun.playground/egress",
+        kafka_egress_message(
+            target_typename="io.statefun.kafka/egress",
             value=egress_record,
             value_type=SPRINGHEAD_TEXT_EGRESS_RECORD_TYPE,
         )

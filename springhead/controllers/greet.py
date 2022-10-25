@@ -41,7 +41,7 @@ async def greeter(context, message):
 
     context.send_egress(
         kafka_egress_message(
-            typename="com.example/my-egress",
+            typename="springhead/kafka-egress",
             topic="cluster",
             key="test",
             value=egress_record,

@@ -9,7 +9,7 @@ from statefun import (
     Message,
     Type,
     ValueSpec,
-    egress_message_builder,
+    kafka_egress_message,
     message_builder,
 )
 
@@ -56,8 +56,9 @@ class Process:
         else:
             print("False")
             context.send_egress(
-                egress_message_builder(
-                    target_typename="io.statefun.playground/egress",
+                kafka_egress_message(
+                    typename="springhead/kafka-egress",
+                    topic="cluster",
                     value=value,
                     value_type=SPRINGHEAD_TEXT_EGRESS_RECORD_TYPE,
                 )

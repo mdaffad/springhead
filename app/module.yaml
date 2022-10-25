@@ -7,18 +7,18 @@ spec:
 ---
 kind: io.statefun.kafka.v1/ingress
 spec:
-  id: springhead/vectorize
+  id: springhead/tfidf
   address: redpanda:29092
   consumerGroupId: springhead-group
   topics:
     - topic: message-topic
       valueType: io.statefun.types/string
       targets:
-        - springhead/vectorize
+        - springhead/tfidf
 ---
 kind: io.statefun.kafka.v1/egress
 spec:
-  id: com.example/my-egress
+  id: springhead/kafka-egress
   address: redpanda:29092
   topics:
     - cluster
