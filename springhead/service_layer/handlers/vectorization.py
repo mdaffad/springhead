@@ -26,7 +26,7 @@ def tfidf(context: Context, message: Message, process: Process) -> None:
     #   text = message.as_type(process.source_type_value)
     # File "/opt/venv/lib/python3.9/site-packages/statefun/messages.py"
     # , line 99, in as_type
-    text = message.as_type(process.source_type_value)
+    text = message.as_type(process.source_type_value)["text"]
 
     tfidf = tfidf.learn_one(text)
 

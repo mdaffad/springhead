@@ -44,6 +44,7 @@ class Process:
 
     def send(self, target_id: str, value: Any, context: Context):
         if self.target_typename:
+            print("True")
             context.send(
                 message_builder(
                     target_typename=self.target_typename,
@@ -53,6 +54,7 @@ class Process:
                 )
             )
         else:
+            print("False")
             context.send_egress(
                 egress_message_builder(
                     target_typename="io.statefun.playground/egress",
