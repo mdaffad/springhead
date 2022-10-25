@@ -15,8 +15,8 @@
 
 kind: io.statefun.endpoints.v2/http
 spec:
-  functions: example/*
-  urlPathTemplate: http://springheads/statefun
+  functions: springhead/*
+  urlPathTemplate: http://springhead/statefun
   transport:
     type: io.statefun.transports.v1/async
 ---

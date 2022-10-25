@@ -6,4 +6,4 @@ logger = getLogger(__name__)
 
 
 async def get_handler(request: Request):
-    request.app.state.bootstrap.handler
+    return request.app.state.bootstrap.handler

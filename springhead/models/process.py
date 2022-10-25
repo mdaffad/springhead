@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from typing import Any, Callable, List, Optional
 
-from pydantic import BaseModel, Field, FilePath, root_validator
+from pydantic import Field, FilePath
+from pydantic.dataclasses import dataclass
 from statefun import (
     Context,
     Message,
@@ -13,7 +14,7 @@ from statefun import (
 )
 
 from springhead.schemas import SPRINGHEAD_TEXT_EGRESS_RECORD_TYPE
-from springhead.utils import CustomEnumType
+from springhead.utils import Config, CustomEnumType
 
 
 class ProcessType(CustomEnumType):
@@ -28,12 +29,11 @@ class ProcessType(CustomEnumType):
     WORD2VEC = "word2vec"
 
 
-# @dataclass(config=Config)
-class Process(BaseModel):
+@dataclass(config=Config)
+class Process:
     typename: str
     function_handler: Callable[[Context, Message, Process], None]
     source_type_value: Type
-    stateful_function: Callable[[Context, Message], None]
     source_typename: Optional[str] = None
     target_type_value: Type = None
     target_typename: Optional[str] = None
@@ -60,19 +60,6 @@ class Process(BaseModel):
                     value_type=SPRINGHEAD_TEXT_EGRESS_RECORD_TYPE,
                 )
             )
-
-    def inject_process_dependency(self):
-        return self
-
-    @root_validator(pre=True)
-    def generate_stateful_function(cls, values):
-        def wrapped_springhead_process(context: Context, message: Message):
-            function_handler = values.get("function_handler")
-            process_dependency = cls.inject_process_dependency()
-            return function_handler(context, message, process_dependency)
-
-        values["stateful_function"] = wrapped_springhead_process
-        return values
 
     class Config:
         arbitrary_types_allowed = True
