@@ -21,6 +21,3 @@ down_dev:
 # export $(cat env/.env.local | grep -v '#' | awk '/=/ {print $1}')
 run_local: make_executable
 	poetry run sh ./scripts/start-reload.sh
-
-test: make_executable
-	docker compose -f compose/docker-compose.test.yml --env-file env/.env up --build
