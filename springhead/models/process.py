@@ -44,7 +44,6 @@ class Process:
 
     def send(self, target_id: str, value: Any, context: Context):
         if self.target_typename:
-            print("True")
             context.send(
                 message_builder(
                     target_typename=self.target_typename,
@@ -54,7 +53,6 @@ class Process:
                 )
             )
         else:
-            print("False")
             context.send_egress(
                 kafka_egress_message(
                     typename="springhead/kafka-egress",

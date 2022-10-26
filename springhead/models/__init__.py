@@ -1,6 +1,5 @@
 from .clustering_process import ClustreamProcess
 from .filtering_process import FilteringProcess
-from .model_loader import ModelLoader
 from .normalization_process import NormalizationProcess
 from .pipeline import Pipeline
 from .process import Process, ProcessType

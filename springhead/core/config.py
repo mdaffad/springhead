@@ -7,7 +7,6 @@ logger = getLogger(__name__)
 
 
 class Settings(BaseSettings):
-    model_path: str = ""
     config_path: str = ""
     module_path: str = ""
     log_level: str = "DEBUG"

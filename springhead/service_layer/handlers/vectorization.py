@@ -1,3 +1,5 @@
+from collections import Counter
+
 from river.feature_extraction import TFIDF
 from statefun import Context, Message
 
@@ -14,21 +16,19 @@ def tfidf(context: Context, message: Message, process: Process) -> None:
 
     tfidf = TFIDF()
     if document_counter:
-        tfidf.dfs = document_counter
+        tfidf.dfs = Counter(document_counter)
         tfidf.n = document_number
 
     text = message.as_type(process.source_type_value)
+    raw_text = text["text"]
 
-    print(text)
-    tfidf = tfidf.learn_one(text)
+    tfidf = tfidf.learn_one(raw_text)
 
     # Update docs storage
     context.storage.dfs = dict(tfidf.dfs)
     context.storage.n = tfidf.n
 
-    request = {}
-    request["tfidf"] = dict(tfidf.transform_one(text))
-
+    request = {"tfidf": tfidf.transform_one(raw_text)}
     process.send(target_id=process.target_id, value=request, context=context)
 
 
