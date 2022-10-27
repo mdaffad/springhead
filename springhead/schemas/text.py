@@ -1,7 +1,13 @@
 from statefun import IntType, ValueSpec, make_json_type, simple_type
 
+from springhead.utils import CustomEnumType
+
 
 # Non-protobuf type
+class SpringheadType(CustomEnumType):
+    NON_PROTOBUF_STRING = "str-no-protobuf"
+
+
 def serialize_to_utf_8(value: str):
     return value.encode("utf-8")
 
