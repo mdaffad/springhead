@@ -2,7 +2,7 @@ specifications:
   - typename: springhead/tfidf
     type_process: tfidf
 
-    source_type_value: str
+    source_type_value: str-no-protobuf
     source_type_value_name_dictionary:
     source_typename:
 

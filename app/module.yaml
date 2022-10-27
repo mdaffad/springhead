@@ -12,7 +12,7 @@ spec:
   consumerGroupId: springhead-group
   topics:
     - topic: message-topic
-      valueType: io.statefun.types/string
+      valueType: springhead/text
       targets:
         - springhead/tfidf
 ---
