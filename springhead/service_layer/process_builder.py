@@ -68,7 +68,6 @@ class ProcessBuilder:
                 value_specs=value_specs,
                 **specification.asdict(),
             )
-            print(process.source_type_value.typename)
         except Exception as e:
             logger.error(implemented_class)
             # logger.error(e)
