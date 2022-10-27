@@ -15,7 +15,6 @@ WORKDIR /app/
 RUN python -m venv /opt/venv
 
 COPY ./requirements ./requirements/
-COPY ./springhead/packages ./springhead/packages/
 
 # Allow installing dev dependencies to run tests
 ARG INSTALL_DEV=false
