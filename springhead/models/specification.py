@@ -6,6 +6,7 @@ from pydantic.dataclasses import dataclass
 from statefun import Type, make_json_type
 from statefun.wrapper_types import PY_TYPE_TO_WRAPPER_TYPE
 
+from springhead.schemas.text import SPRINGHEAD_STRING_TYPE
 from springhead.utils.dataclass_config import Config
 from springhead.utils.type_helper import get_type
 
@@ -61,7 +62,10 @@ class Specification:
 
     def option_to_type(self, _type: str, dictionary_name: str):
         _type = get_type(self.source_type_value)
-        if _type == dict and dictionary_name:
+        print(_type)
+        if _type == "str-no-protobuf":
+            return SPRINGHEAD_STRING_TYPE
+        elif _type == dict and dictionary_name:
             return make_json_type(dictionary_name)
         elif (_type == dict and not dictionary_name) or (
             _type != dict and dictionary_name
@@ -76,6 +80,7 @@ class Specification:
             )
         else:
             _type = PY_TYPE_TO_WRAPPER_TYPE.get(_type, None)
+
             if _type:
                 return _type
             else:

@@ -1,5 +1,6 @@
-def get_type(name):
+def get_type(name: str):
     t = __builtins__.get(name)
     if isinstance(t, type):
         return t
-    raise ValueError(name)
+    else:
+        return name

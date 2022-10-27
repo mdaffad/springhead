@@ -17,7 +17,7 @@ trio = ["trio (>=0.16)"]
 
 [[package]]
 name = "apache-flink-statefun"
-version = "3.2.0"
+version = "3.3-SNAPSHOT"
 description = "Python SDK for Apache Flink Stateful functions"
 category = "main"
 optional = false
@@ -25,6 +25,10 @@ python-versions = ">=3.8"
 
 [package.dependencies]
 protobuf = ">=3.11.3,<4.0.0"
+
+[package.source]
+type = "file"
+url = "springhead/packages/apache_flink_statefun-3.3_SNAPSHOT-py3-none-any.whl"
 
 [[package]]
 name = "cfgv"
@@ -397,13 +401,12 @@ testing = ["coverage (>=6.2)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "cbc9a193cf3acbdcbd6b44532f425bffb5feb30c9ffc7b2b216af75f6e0d66ba"
+content-hash = "c991746ea3d91fda230b3806a39b2898bf1285013a881317c2ea58041d4d120d"
 
 [metadata.files]
 anyio = []
 apache-flink-statefun = [
-    {file = "apache-flink-statefun-3.2.0.tar.gz", hash = "sha256:821e8f53d5388094e54dcf7b11488cff1c755900c40165612b23f6f10de85eab"},
-    {file = "apache_flink_statefun-3.2.0-py3-none-any.whl", hash = "sha256:82b14169c6ffad2f48483b6fb786d56c5591679fdc2e8bb75e99742ab5799ff6"},
+    {file = "apache_flink_statefun-3.3_SNAPSHOT-py3-none-any.whl", hash = "sha256:4ce1960f1a31d1568dc35fc7fab5356d7c0737d3f11be8fe1ea8c9e37a7a0ff9"},
 ]
 cfgv = [
     {file = "cfgv-3.3.1-py2.py3-none-any.whl", hash = "sha256:c6a0883f3917a037485059700b9e75da2464e6c27051014ad85ba6aaa5884426"},
