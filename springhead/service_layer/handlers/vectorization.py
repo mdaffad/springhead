@@ -18,8 +18,9 @@ def tfidf(context: Context, message: Message, process: Process) -> None:
     if document_counter:
         tfidf.dfs = Counter(document_counter)
         tfidf.n = document_number
-    # print(message.typed_value.value)
+    print(message.typed_value.value)
     text = message.as_type(process.source_type_value)
+    print(text)
     # TODO: fix as_type => just deserialize from bytes,
     # not from message.typed_value.value
     # text = message.typed_value.value
