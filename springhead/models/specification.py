@@ -25,6 +25,7 @@ class Specification:
 
     source_type_value: Type
     source_type_value_name_dictionary: Optional[str] = None
+    # TODO: add source_type_key_name_dictionary
     source_typename: Optional[str] = None
 
     target_type_value: Type = None
@@ -53,8 +54,8 @@ class Specification:
             self.target_type_value or self.target_typename
         ):
             """
-            self.target_type_value == None and self.target_typename == Some
-            self.target_type_value == Some and self.target_typename == None
+            self.target_type_value == None and self.target_typename
+            self.target_type_value and self.target_typename == None
             """
             raise ValueError(
                 "target type value and target typename must be configured together"
@@ -72,7 +73,7 @@ class Specification:
         ):
             """
             _type == dict and dictiory_name == None
-            _type != dict and dictiory_name == Some
+            _type != dict and dictiory_name
             """
             raise ValueError(
                 "dictionary must be \
