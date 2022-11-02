@@ -14,11 +14,6 @@ from .process import ProcessType
 
 
 @dataclass(config=Config)
-class DictTypeSchema:
-    typename: str
-
-
-@dataclass(config=Config)
 class Specification:
     typename: str
     type_process: ProcessType

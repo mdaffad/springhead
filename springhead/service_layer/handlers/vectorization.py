@@ -7,6 +7,7 @@ from springhead.models import Process
 
 
 def bag_of_words(context: Context, message: Message, process: Process) -> None:
+    # TODO: bag of words
     pass
 
 
@@ -32,4 +33,5 @@ def tfidf(context: Context, message: Message, process: Process) -> None:
 
 
 def word2vec(context: Context, message: Message, process: Process) -> None:
+    # TODO: word2vec with load model
     pass

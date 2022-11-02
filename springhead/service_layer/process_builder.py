@@ -4,32 +4,21 @@ import logging
 from typing import Optional
 
 from springhead.models import (
+    BagOfWordProcess,
     ClustreamProcess,
-    FilteringProcess,
+    NormalizationProcess,
     Process,
     ProcessType,
     Specification,
     TFIDFProcess,
-    TransformationProcess,
+    Word2VecProcess,
 )
-from springhead.models.normalization_process import NormalizationProcess
-from springhead.models.tokenization_process import TokenizationProcess
-from springhead.models.vectorization_process import Word2VecProcess
 from springhead.schemas import (
     SPRINGHEAD_DFS_VALUE_SPEC,
     SPRINGHEAD_N_DOCUMENT_VALUE_SPEC,
 )
 
-from .handlers import (
-    bag_of_words,
-    clustream,
-    filter,
-    normalize,
-    tfidf,
-    tokenize,
-    transform,
-    word2vec,
-)
+from .handlers import bag_of_words, clustream, normalize, tfidf, word2vec
 
 logger = logging.getLogger(__name__)
 
@@ -40,17 +29,14 @@ class ProcessBuilder:
     """
 
     process_type_to_function_mapper = {
-        ProcessType.BAG_OF_WORD: (TransformationProcess, bag_of_words, []),
+        ProcessType.BAG_OF_WORD: (BagOfWordProcess, bag_of_words, []),
         ProcessType.CLUSTREAM: (ClustreamProcess, clustream, []),
-        ProcessType.FILTERING: (FilteringProcess, filter, []),
         ProcessType.NORMALIZATION: (NormalizationProcess, normalize, []),
         ProcessType.TFIDF: (
             TFIDFProcess,
             tfidf,
             [SPRINGHEAD_DFS_VALUE_SPEC, SPRINGHEAD_N_DOCUMENT_VALUE_SPEC],
         ),
-        ProcessType.TOKENIZATION: (TokenizationProcess, tokenize, []),
-        ProcessType.TRANSFORMATION: (TransformationProcess, transform, []),
         ProcessType.WORD2VEC: (Word2VecProcess, word2vec, []),
     }
 
