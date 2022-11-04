@@ -1,14 +1,24 @@
 from collections import Counter
 
-from river.feature_extraction import TFIDF
+from river.feature_extraction import TFIDF, BagOfWords
 from statefun import Context, Message
 
 from springhead.models import Process
 
 
 def bag_of_words(context: Context, message: Message, process: Process) -> None:
-    # TODO: bag of words
-    pass
+    document_counter = context.storage.dfs or {}
+    document_counter = Counter(document_counter)
+    bow = BagOfWords()
+
+    text = message.as_type(process.source_type_value)
+    bow = bow.transform_one(text)
+
+    dfs = dict(document_counter + bow)
+    context.storage.dfs = dfs
+
+    request = {"bag_of_words": dfs}
+    process.send(target_id=process.target_id, value=request, context=context)
 
 
 def tfidf(context: Context, message: Message, process: Process) -> None:

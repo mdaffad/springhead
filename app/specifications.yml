@@ -1,6 +1,6 @@
 specifications:
-  - typename: springhead/tfidf
-    type_process: tfidf
+  - typename: springhead/bag_of_word
+    type_process: bag_of_word
 
     source_type_value: str-no-protobuf
     source_type_value_name_dictionary:
