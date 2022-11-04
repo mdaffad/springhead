@@ -1,6 +1,7 @@
 import unicodedata
 
 import nltk
+from nltk.tokenize import word_tokenize
 from statefun import Context, Message
 
 from springhead.models import Process
@@ -28,7 +29,7 @@ def normalize(context: Context, message: Message, process: Process) -> None:
     text: str = message.as_type(process.source_type_value)  # str expected
     normalized_text = [
         lemmatize(word).lower()
-        for word in text.split(" ")
+        for word in word_tokenize(text)
         if not is_punct(word) and not is_stopword(word)
     ]
     process.send(target_id=process.target_id, value=normalized_text, context=context)

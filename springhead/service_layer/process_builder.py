@@ -29,7 +29,11 @@ class ProcessBuilder:
     """
 
     process_type_to_function_mapper = {
-        ProcessType.BAG_OF_WORD: (BagOfWordProcess, bag_of_words, []),
+        ProcessType.BAG_OF_WORD: (
+            BagOfWordProcess,
+            bag_of_words,
+            [SPRINGHEAD_DFS_VALUE_SPEC],
+        ),
         ProcessType.CLUSTREAM: (ClustreamProcess, clustream, []),
         ProcessType.NORMALIZATION: (NormalizationProcess, normalize, []),
         ProcessType.TFIDF: (

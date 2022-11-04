@@ -7,14 +7,14 @@ spec:
 ---
 kind: io.statefun.kafka.v1/ingress
 spec:
-  id: springhead/tfidf
+  id: springhead/bag_of_word
   address: redpanda:29092
   consumerGroupId: springhead-group
   topics:
     - topic: message-topic
       valueType: springhead/text
       targets:
-        - springhead/tfidf
+        - springhead/bag_of_word
 ---
 kind: io.statefun.kafka.v1/egress
 spec:
