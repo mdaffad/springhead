@@ -65,7 +65,6 @@ class ProcessBuilder:
             )
         except Exception as e:
             logger.error(implemented_class)
-            # logger.error(e)
             raise e
         else:
             return process
