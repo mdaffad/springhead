@@ -14,6 +14,7 @@ from springhead.models import (
     Word2VecProcess,
 )
 from springhead.schemas import (
+    SPRINGHEAD_CLUSTREAM_VALUE_SPEC,
     SPRINGHEAD_DFS_VALUE_SPEC,
     SPRINGHEAD_N_DOCUMENT_VALUE_SPEC,
 )
@@ -34,7 +35,11 @@ class ProcessBuilder:
             bag_of_words,
             [SPRINGHEAD_DFS_VALUE_SPEC],
         ),
-        ProcessType.CLUSTREAM: (ClustreamProcess, clustream, []),
+        ProcessType.CLUSTREAM: (
+            ClustreamProcess,
+            clustream,
+            [SPRINGHEAD_CLUSTREAM_VALUE_SPEC],
+        ),
         ProcessType.NORMALIZATION: (NormalizationProcess, normalize, []),
         ProcessType.TFIDF: (
             TFIDFProcess,
