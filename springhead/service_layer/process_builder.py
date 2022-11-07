@@ -11,7 +11,6 @@ from springhead.models import (
     ProcessType,
     Specification,
     TFIDFProcess,
-    Word2VecProcess,
 )
 from springhead.schemas import (
     SPRINGHEAD_CLUSTREAM_VALUE_SPEC,
@@ -19,7 +18,7 @@ from springhead.schemas import (
     SPRINGHEAD_N_DOCUMENT_VALUE_SPEC,
 )
 
-from .handlers import bag_of_words, clustream, normalize, tfidf, word2vec
+from .handlers import bag_of_words, clustream, normalize, tfidf
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +45,6 @@ class ProcessBuilder:
             tfidf,
             [SPRINGHEAD_DFS_VALUE_SPEC, SPRINGHEAD_N_DOCUMENT_VALUE_SPEC],
         ),
-        ProcessType.WORD2VEC: (Word2VecProcess, word2vec, []),
     }
 
     @classmethod
@@ -61,6 +59,8 @@ class ProcessBuilder:
             process = implemented_class(
                 function_handler=implemented_function,
                 value_specs=value_specs,
+                # TODO: implement as real model
+                # TODO: asdict except model_path because it will not be used again
                 **specification.asdict(),
             )
         except Exception as e:
