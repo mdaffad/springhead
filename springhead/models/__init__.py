@@ -3,4 +3,4 @@ from .normalization_process import NormalizationProcess
 from .pipeline import Pipeline
 from .process import Process, ProcessType
 from .specification import Specification
-from .vectorization_process import BagOfWordProcess, TFIDFProcess, Word2VecProcess
+from .vectorization_process import BagOfWordProcess, TFIDFProcess

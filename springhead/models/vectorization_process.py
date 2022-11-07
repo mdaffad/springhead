@@ -9,7 +9,3 @@ class BagOfWordProcess(Process):
 
 class TFIDFProcess(Process):
     type_process: ProcessType = ProcessType.TFIDF
-
-
-class Word2VecProcess(Process):
-    type_process: ProcessType = ProcessType.WORD2VEC

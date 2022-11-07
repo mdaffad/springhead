@@ -26,7 +26,6 @@ class ProcessType(CustomEnumType):
     TFIDF = "tfidf"
     TOKENIZATION = "tokenization"
     TRANSFORMATION = "transformation"
-    WORD2VEC = "word2vec"
 
 
 @dataclass(config=Config)
@@ -39,6 +38,7 @@ class Process:
     target_typename: Optional[str] = None
     target_id: str = "v1"
     type_process: ProcessType = ProcessType.CUSTOM
+    # TODO: implement as real model
     model_path: Optional[FilePath] = None
     value_specs: List[ValueSpec] = Field(default_factory=list)
 
