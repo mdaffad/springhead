@@ -15,6 +15,7 @@ from springhead.service_layer import (
 
 @dataclass
 class Bootstrap:
+    # TODO: add model loader
     pipeline: Pipeline
     handler: RequestReplyHandler
 

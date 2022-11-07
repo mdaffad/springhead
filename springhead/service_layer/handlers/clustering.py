@@ -10,5 +10,4 @@ def clustream(context: Context, message: Message, process: Process) -> None:
         clustream = clustream = CluStream(
             n_macro_clusters=3, max_micro_clusters=5, time_gap=3, seed=0, halflife=0.4
         )
-    print(clustream)
     pass

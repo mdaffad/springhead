@@ -7,6 +7,7 @@ from springhead.models import Process
 
 
 def bag_of_words(context: Context, message: Message, process: Process) -> None:
+    # TODO: add model loader for bag_of_words when document_cunter == {}
     document_counter = context.storage.dfs or {}
     document_counter = Counter(document_counter)
     bow = BagOfWords()
@@ -22,6 +23,7 @@ def bag_of_words(context: Context, message: Message, process: Process) -> None:
 
 
 def tfidf(context: Context, message: Message, process: Process) -> None:
+    # TODO: add model loader for bag_of_words when document_cunter == {} or n == 0
     document_counter = context.storage.dfs or {}
     document_number = context.storage.n or 0
 
