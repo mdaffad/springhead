@@ -40,8 +40,3 @@ def tfidf(context: Context, message: Message, process: Process) -> None:
 
     request = {"tfidf": tfidf.transform_one(raw_text)}
     process.send(target_id=process.target_id, value=request, context=context)
-
-
-def word2vec(context: Context, message: Message, process: Process) -> None:
-    # TODO: word2vec with load model
-    pass
