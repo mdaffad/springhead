@@ -1,7 +1,7 @@
 from dataclasses import asdict
-from typing import List, Optional
+from typing import List, Optional, Set
 
-from pydantic import DirectoryPath, FilePath
+from pydantic import FilePath
 from pydantic.dataclasses import dataclass
 from statefun import Type, make_json_type
 from statefun.wrapper_types import PY_TYPE_TO_WRAPPER_TYPE
@@ -82,10 +82,17 @@ class Specification:
             else:
                 raise ValueError("source value type is invalid")
 
-    def asdict(self):
-        return asdict(self)
+    def asdict(self, exception: Set[str] = set()):
+        dictionary = asdict(self)
+        if not exception:
+            return dictionary
+
+        for key in exception:
+            if key in dictionary:
+                del dictionary[key]
+
+        return dictionary
 
 
 class Specifications:
     specifications: List[Specification]
-    model_directory: Optional[DirectoryPath]

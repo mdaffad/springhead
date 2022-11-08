@@ -19,6 +19,7 @@ from springhead.schemas import (
 )
 
 from .handlers import bag_of_words, clustream, normalize, tfidf
+from .model_loader import ModelLoader
 
 logger = logging.getLogger(__name__)
 
@@ -56,12 +57,14 @@ class ProcessBuilder:
         ) = cls.process_type_to_function_mapper[specification.type_process]
         process = None
         try:
+            model = ModelLoader.load_model(specification.model_path)
             process = implemented_class(
                 function_handler=implemented_function,
                 value_specs=value_specs,
                 # TODO: implement as real model
                 # TODO: asdict except model_path because it will not be used again
-                **specification.asdict(),
+                model=model,
+                **specification.asdict(exception={"model_path"}),
             )
         except Exception as e:
             logger.error(implemented_class)

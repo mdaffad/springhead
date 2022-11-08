@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Callable, List, Optional
 
-from pydantic import Field, FilePath
+from pydantic import Field
 from pydantic.dataclasses import dataclass
 from statefun import (
     Context,
@@ -16,6 +16,8 @@ from statefun import (
 from springhead.schemas import SPRINGHEAD_TEXT_EGRESS_RECORD_TYPE
 from springhead.utils import Config, CustomEnumType
 
+from .model import Model
+
 
 class ProcessType(CustomEnumType):
     BAG_OF_WORD = "bag_of_word"
@@ -28,7 +30,7 @@ class ProcessType(CustomEnumType):
     TRANSFORMATION = "transformation"
 
 
-@dataclass(config=Config)
+@dataclass(config=Config, frozen=True)
 class Process:
     typename: str
     function_handler: Callable[[Context, Message, Process], None]
@@ -38,8 +40,7 @@ class Process:
     target_typename: Optional[str] = None
     target_id: str = "v1"
     type_process: ProcessType = ProcessType.CUSTOM
-    # TODO: implement as real model
-    model_path: Optional[FilePath] = None
+    model: Optional[Model] = None
     value_specs: List[ValueSpec] = Field(default_factory=list)
 
     def send(self, target_id: str, value: Any, context: Context):
