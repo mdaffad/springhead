@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict
 
 from pydantic import Field
 from pydantic.dataclasses import dataclass
@@ -19,7 +19,6 @@ class PipelineException(Exception):
 class Pipeline:
     processes: Dict[str, Process] = Field(default_factory=dict)
     stateful_functions: StatefulFunctions = StatefulFunctions()
-    model_directory: Optional[str] = None
 
     def register_process(self, process: Process):
         if process.typename in self.processes.keys():

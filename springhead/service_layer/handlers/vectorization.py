@@ -25,6 +25,8 @@ def bag_of_words(context: Context, message: Message, process: Process) -> None:
 def tfidf(context: Context, message: Message, process: Process) -> None:
     # TODO: add model loader for bag_of_words when document_cunter == {} or n == 0
     document_counter = context.storage.dfs or {}
+    if not document_counter and process.model_path:
+        pass
     document_number = context.storage.n or 0
 
     tfidf = TFIDF()
