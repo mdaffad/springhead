@@ -9,7 +9,11 @@ from springhead.models import Process
 def bag_of_words(context: Context, message: Message, process: Process) -> None:
     # TODO: add model loader for bag_of_words when document_cunter == {}
     document_counter = context.storage.dfs or {}
-    document_counter = Counter(document_counter)
+    if not document_counter and process.model:
+        document_counter = process.model.pickled_object
+    else:
+        document_counter = Counter(document_counter)
+
     bow = BagOfWords()
 
     text = message.as_type(process.source_type_value)
@@ -25,22 +29,28 @@ def bag_of_words(context: Context, message: Message, process: Process) -> None:
 def tfidf(context: Context, message: Message, process: Process) -> None:
     # TODO: add model loader for bag_of_words when document_cunter == {} or n == 0
     document_counter = context.storage.dfs or {}
-    if not document_counter and process.model_path:
-        pass
     document_number = context.storage.n or 0
+
+    if not document_counter and process.model and document_number == 0:
+        document_counter = process.model.pickled_object.dfs
+        document_number = process.model.pickled_object.n
 
     tfidf = TFIDF()
     if document_counter:
         tfidf.dfs = Counter(document_counter)
         tfidf.n = document_number
     text = message.as_type(process.source_type_value)
-    raw_text = text
 
-    tfidf = tfidf.learn_one(raw_text)
+    tfidf = tfidf.learn_one(text)
 
     # Update docs storage
-    context.storage.dfs = dict(tfidf.dfs)
-    context.storage.n = tfidf.n
+    dfs = tfidf.dfs
+    n = tfidf.n
+    context.storage.dfs = dict(dfs)
+    context.storage.n = n
 
-    request = {"tfidf": tfidf.transform_one(raw_text)}
+    tfidf = tfidf.transform_one(text)
+    request = {
+        "vectorized_value": tfidf,
+    }
     process.send(target_id=process.target_id, value=request, context=context)

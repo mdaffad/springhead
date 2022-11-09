@@ -1,9 +1,20 @@
 specifications:
-  - typename: springhead/clustream
-    type_process: clustream
+  - typename: springhead/tfidf
+    type_process: tfidf
 
     source_type_value: str-no-protobuf
     source_type_value_name_dictionary:
+    source_typename:
+
+    target_type_value: dict
+    target_type_value_name_dictionary: post_tfidf
+    target_typename: springhead/clustream
+    model_path:
+  - typename: springhead/clustream
+    type_process: clustream
+
+    source_type_value: dict
+    source_type_value_name_dictionary: clustream
     source_typename:
 
     target_type_value:
