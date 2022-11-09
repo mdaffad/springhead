@@ -1,8 +1,19 @@
 specifications:
+  - typename: springhead/normalization
+    type_process: normalization
+
+    source_type_value: str-no-protobuf
+    source_type_value_name_dictionary:
+    source_typename:
+
+    target_type_value: str
+    target_type_value_name_dictionary:
+    target_typename: springhead/tfidf
+    model_path:
   - typename: springhead/tfidf
     type_process: tfidf
 
-    source_type_value: str-no-protobuf
+    source_type_value: str
     source_type_value_name_dictionary:
     source_typename:
 

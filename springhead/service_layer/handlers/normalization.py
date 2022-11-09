@@ -6,8 +6,6 @@ from statefun import Context, Message
 
 from springhead.models import Process
 
-nltk.download("stopwords")
-
 stopwords = set(nltk.corpus.stopwords.words("english"))
 lemmatizer = nltk.stem.WordNetLemmatizer()
 
@@ -32,4 +30,5 @@ def normalize(context: Context, message: Message, process: Process) -> None:
         for word in word_tokenize(text)
         if not is_punct(word) and not is_stopword(word)
     ]
+    normalized_text = " ".join(normalized_text)
     process.send(target_id=process.target_id, value=normalized_text, context=context)

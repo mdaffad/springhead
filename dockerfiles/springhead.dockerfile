@@ -37,6 +37,11 @@ COPY scripts ./scripts
 
 ENV PYTHONPATH=/app
 
+RUN python -m nltk.downloader stopwords && \
+    python -m nltk.downloader punkt && \
+    python -m nltk.downloader wordnet && \
+    python -m nltk.downloader omw-1.4
+
 CMD [ "--", "sh", "./scripts/start.sh" ]
 ENTRYPOINT ["dumb-init"]
 
