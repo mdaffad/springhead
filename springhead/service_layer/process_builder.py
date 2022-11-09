@@ -57,12 +57,12 @@ class ProcessBuilder:
         ) = cls.process_type_to_function_mapper[specification.type_process]
         process = None
         try:
-            model = ModelLoader.load_model(specification.model_path)
+            model = None
+            if specification.model_path:
+                model = ModelLoader.load_model(specification.model_path)
             process = implemented_class(
                 function_handler=implemented_function,
                 value_specs=value_specs,
-                # TODO: implement as real model
-                # TODO: asdict except model_path because it will not be used again
                 model=model,
                 **specification.asdict(exception={"model_path"}),
             )

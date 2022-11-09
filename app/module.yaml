@@ -7,14 +7,14 @@ spec:
 ---
 kind: io.statefun.kafka.v1/ingress
 spec:
-  id: springhead/clustream
+  id: springhead/tfidf
   address: redpanda:29092
   consumerGroupId: springhead-group
   topics:
     - topic: message-topic
       valueType: springhead/text
       targets:
-        - springhead/clustream
+        - springhead/tfidf
 ---
 kind: io.statefun.kafka.v1/egress
 spec:

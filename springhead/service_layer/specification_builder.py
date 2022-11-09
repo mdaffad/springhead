@@ -29,7 +29,6 @@ class SpecificationBuilder:
                 specifications_file = yaml.safe_load(stream)["specifications"]
             except yaml.YAMLError as exc:
                 print(exc)
-
         for specification in specifications_file:
             new_specification = Specification(**specification)
             self.specifications.append(new_specification)

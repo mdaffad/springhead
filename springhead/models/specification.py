@@ -20,7 +20,6 @@ class Specification:
 
     source_type_value: Type
     source_type_value_name_dictionary: Optional[str] = None
-    # TODO: add source_type_key_name_dictionary
     source_typename: Optional[str] = None
 
     target_type_value: Type = None
@@ -57,30 +56,21 @@ class Specification:
             )
 
     def option_to_type(self, _type: str, dictionary_name: str):
-        _type = get_type(self.source_type_value)
-
+        _type = get_type(_type)
         if _type == SpringheadType.NON_PROTOBUF_STRING.value:
             return SPRINGHEAD_STRING_TYPE
         elif _type == dict and dictionary_name:
             return make_json_type(dictionary_name)
-        elif (_type == dict and not dictionary_name) or (
-            _type != dict and dictionary_name
-        ):
-            """
-            _type == dict and dictiory_name == None
-            _type != dict and dictiory_name
-            """
-            raise ValueError(
-                "dictionary must be \
-                followed with source_type_value_name_dictionary"
-            )
         else:
             _type = PY_TYPE_TO_WRAPPER_TYPE.get(_type, None)
 
             if _type:
                 return _type
             else:
-                raise ValueError("source value type is invalid")
+                raise ValueError(
+                    "source value type is invalid or\
+                    dictionary type is not followed with dictionary_name"
+                )
 
     def asdict(self, exception: Set[str] = set()):
         dictionary = asdict(self)
