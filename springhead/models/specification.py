@@ -20,7 +20,6 @@ class Specification:
 
     source_type_value: Type
     source_type_value_name_dictionary: Optional[str] = None
-    source_typename: Optional[str] = None
 
     target_type_value: Type = None
     target_type_value_name_dictionary: Optional[str] = None

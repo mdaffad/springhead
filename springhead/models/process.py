@@ -35,7 +35,6 @@ class Process:
     typename: str
     function_handler: Callable[[Context, Message, Process], None]
     source_type_value: Type
-    source_typename: Optional[str] = None
     target_type_value: Type = None
     target_typename: Optional[str] = None
     target_id: str = "v1"

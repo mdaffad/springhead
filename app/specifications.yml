@@ -4,7 +4,6 @@ specifications:
 
     source_type_value: str-no-protobuf
     source_type_value_name_dictionary:
-    source_typename:
 
     target_type_value: str
     target_type_value_name_dictionary:
@@ -15,7 +14,6 @@ specifications:
 
     source_type_value: str
     source_type_value_name_dictionary:
-    source_typename:
 
     target_type_value: dict
     target_type_value_name_dictionary: post_tfidf
@@ -26,7 +24,6 @@ specifications:
 
     source_type_value: dict
     source_type_value_name_dictionary: clustream
-    source_typename:
 
     target_type_value:
     target_type_value_name_dictionary:
