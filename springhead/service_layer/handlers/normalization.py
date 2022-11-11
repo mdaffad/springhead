@@ -23,7 +23,6 @@ def lemmatize(token):
 
 
 def normalize(context: Context, message: Message, process: Process) -> None:
-    # TODO: normalize
     text: str = message.as_type(process.source_type_value)  # str expected
     normalized_text = [
         lemmatize(word).lower()
