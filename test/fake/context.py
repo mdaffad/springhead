@@ -1,0 +1,2 @@
+class FakeContext:
+    pass

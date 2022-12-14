@@ -4,6 +4,8 @@ from typing import Any, Callable, List, Optional
 
 from pydantic import Field
 from pydantic.dataclasses import dataclass
+
+# TODO: make abstraction on SDK
 from statefun import (
     Context,
     Message,
@@ -33,9 +35,10 @@ class ProcessType(CustomEnumType):
 @dataclass(config=Config, frozen=True)
 class Process:
     typename: str
+    # Make abstraction on SDK
     function_handler: Callable[[Context, Message, Process], None]
     source_type_value: Type
-    target_type_value: Type = None
+    target_type_value: Optional[Type] = None
     target_typename: Optional[str] = None
     target_id: str = "v1"
     type_process: ProcessType = ProcessType.CUSTOM
