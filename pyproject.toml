@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "springhead"
 version = "0.0.1"
-description = "Clustering Framework for Faust Streaming"
+description = "Clustering Framework over Apache Flink Stateful Function"
 authors = ["Muhammad Daffa Dinaya <13518141@std.stei.itb.ac.id>"]
 
 [tool.poetry.dependencies]
