@@ -1,4 +1,5 @@
 from .clustering_process import ClustreamProcess
+from .custom_process import CustomProcess
 from .model import Model
 from .normalization_process import NormalizationProcess
 from .pipeline import Pipeline

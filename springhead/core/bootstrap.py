@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import List
+from typing import Callable, Dict, List
 
-from statefun import RequestReplyHandler
+from statefun import Context, Message, RequestReplyHandler
 
 from springhead.models import Pipeline, Process
 from springhead.service_layer import (
@@ -19,7 +19,9 @@ class Bootstrap:
     handler: RequestReplyHandler
 
 
-async def bootstrap() -> Bootstrap:
+async def bootstrap(
+    custom_function: Dict[str, Callable[[Context, Message, Process], None]] = dict()
+) -> Bootstrap:
     specification_builder = SpecificationBuilder(
         "./app/specifications.yml"
     )  # type: ignore
