@@ -5,6 +5,7 @@ import logging
 from springhead.models import (
     BagOfWordProcess,
     ClustreamProcess,
+    CustomProcess,
     NormalizationProcess,
     Process,
     ProcessType,
@@ -46,15 +47,30 @@ class ProcessBuilder:
             [SPRINGHEAD_DFS_VALUE_SPEC, SPRINGHEAD_N_DOCUMENT_VALUE_SPEC],
         ),
         # TODO: implement for CUSTOM type mapper
+        ProcessType.CUSTOM: (CustomProcess, None, []),
     }
 
     @classmethod
-    def build(cls, specification: Specification) -> Process:
+    def map_custom_function(cls, process_type: ProcessType):
+
+        return
+
+    @classmethod
+    def build(
+        cls, specification: Specification, custom_function=None, custom_value_spec=[]
+    ) -> Process:
         (
             implemented_class,
             implemented_function,
             value_specs,
         ) = cls.process_type_to_function_mapper[specification.type_process]
+
+        if implemented_class == CustomProcess:
+            if custom_function is None or custom_value_spec == []:
+                raise Exception("No implementation of custom function")
+            implemented_function = None
+            value_specs = []
+
         process = None
         try:
             model = None
