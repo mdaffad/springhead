@@ -1,10 +1,10 @@
 from dataclasses import asdict
-from typing import List, Optional, Set
+from typing import List, Optional, Set, Union
 
 from pydantic import FilePath
 from pydantic.dataclasses import dataclass
 from statefun import Type, make_json_type
-from statefun.wrapper_types import PY_TYPE_TO_WRAPPER_TYPE
+from statefun.wrapper_types import PY_TYPE_TO_WRAPPER_TYPE, ProtobufWrappingType
 
 from springhead.schemas import SPRINGHEAD_STRING_TYPE, SpringheadType
 from springhead.utils.dataclass_config import Config
@@ -34,14 +34,14 @@ class Specification:
         if isinstance(self.source_type_value, str):
             self.source_type_value = self.option_to_type(
                 self.source_type_value,
-                self.source_type_value_name_dictionary,
-            )
+                self.source_type_value_name_dictionary,  # type: ignore
+            )  # type: ignore
 
         if isinstance(self.target_type_value, str):
             self.target_type_value = self.option_to_type(
                 self.target_type_value,
-                self.target_type_value_name_dictionary,
-            )
+                self.target_type_value_name_dictionary,  # type: ignore
+            )  # type: ignore
 
         if not (self.target_type_value and self.target_typename) and (
             self.target_type_value or self.target_typename
@@ -55,14 +55,13 @@ class Specification:
             )
 
     def option_to_type(self, _type: str, dictionary_name: str):
-        _type = get_type(_type)
+        _type: Union[type, str, Optional[ProtobufWrappingType]] = get_type(_type)
         if _type == SpringheadType.NON_PROTOBUF_STRING.value:
             return SPRINGHEAD_STRING_TYPE
         elif _type == dict and dictionary_name:
             return make_json_type(dictionary_name)
         else:
-            _type = PY_TYPE_TO_WRAPPER_TYPE.get(_type, None)
-
+            _type = PY_TYPE_TO_WRAPPER_TYPE.get(_type, None)  # type: ignore
             if _type:
                 return _type
             else:

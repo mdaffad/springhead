@@ -6,8 +6,8 @@ from statefun import Context, Message
 from springhead.models import Process
 
 
+# TODO: add model loader for bag_of_words when document_cunter == {}
 def bag_of_words(context: Context, message: Message, process: Process) -> None:
-    # TODO: add model loader for bag_of_words when document_cunter == {}
     document_counter = context.storage.dfs or {}
     if not document_counter and process.model:
         document_counter = process.model.pickled_object
@@ -26,8 +26,8 @@ def bag_of_words(context: Context, message: Message, process: Process) -> None:
     process.send(target_id=process.target_id, value=request, context=context)
 
 
+# TODO: add model loader for bag_of_words when document_counter == {} or n == 0
 def tfidf(context: Context, message: Message, process: Process) -> None:
-    # TODO: add model loader for bag_of_words when document_cunter == {} or n == 0
     document_counter = context.storage.dfs or {}
     document_number = context.storage.n or 0
 

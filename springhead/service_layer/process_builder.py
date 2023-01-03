@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
 
 from springhead.models import (
     BagOfWordProcess,
@@ -46,10 +45,11 @@ class ProcessBuilder:
             tfidf,
             [SPRINGHEAD_DFS_VALUE_SPEC, SPRINGHEAD_N_DOCUMENT_VALUE_SPEC],
         ),
+        # TODO: implement for CUSTOM type mapper
     }
 
     @classmethod
-    def build(cls, specification: Specification) -> Optional[Process]:
+    def build(cls, specification: Specification) -> Process:
         (
             implemented_class,
             implemented_function,
