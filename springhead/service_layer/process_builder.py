@@ -59,7 +59,7 @@ class ProcessBuilder:
         try:
             model = None
             if specification.model_path:
-                model = ModelLoader.load_model(specification.model_path)
+                model = ModelLoader.load_model(specification.model_path)  # type: ignore
             process = implemented_class(
                 function_handler=implemented_function,
                 value_specs=value_specs,
