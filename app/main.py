@@ -27,6 +27,7 @@ async def startup():
     init_logger(settings.log_level)
 
     logger = logging.getLogger(__name__)
-    app.state.bootstrap: Bootstrap = await bootstrap()
+    # TODO: custom process injection
+    app.state.bootstrap: Bootstrap = await bootstrap()  # type: ignore
 
     logger.info("Bootstrap is done")

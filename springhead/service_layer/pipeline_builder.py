@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from springhead.models import Pipeline, Process
 
@@ -9,7 +9,9 @@ class PipelineBuilder:
     """
 
     @staticmethod
-    def build(pipeline: Pipeline = None, processes: List[Process] = []) -> Pipeline:
+    def build(
+        pipeline: Optional[Pipeline] = None, processes: List[Process] = []
+    ) -> Pipeline:
         if not pipeline:
             pipeline = Pipeline()
 

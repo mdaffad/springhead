@@ -19,8 +19,10 @@ class Bootstrap:
     handler: RequestReplyHandler
 
 
-async def bootstrap() -> None:
-    specification_builder = SpecificationBuilder("./app/specifications.yml")
+async def bootstrap() -> Bootstrap:
+    specification_builder = SpecificationBuilder(
+        "./app/specifications.yml"
+    )  # type: ignore
     specifications = specification_builder.read_spec_file()
     processes: List[Process] = []
     for specification in specifications:
