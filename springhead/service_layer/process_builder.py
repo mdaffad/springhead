@@ -46,7 +46,6 @@ class ProcessBuilder:
             tfidf,
             [SPRINGHEAD_DFS_VALUE_SPEC, SPRINGHEAD_N_DOCUMENT_VALUE_SPEC],
         ),
-        # TODO: implement for CUSTOM type mapper
         ProcessType.CUSTOM: (CustomProcess, None, []),
     }
 
