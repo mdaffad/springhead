@@ -65,10 +65,10 @@ class ProcessBuilder:
         ) = cls.process_type_to_function_mapper[specification.type_process]
 
         if implemented_class == CustomProcess:
-            if custom_function is None or custom_value_spec == []:
+            if custom_function is None:
                 raise Exception("No implementation of custom function")
-            implemented_function = None
-            value_specs = []
+            implemented_function = custom_function
+            value_specs = custom_value_spec
 
         process = None
         try:

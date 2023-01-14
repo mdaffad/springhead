@@ -1,6 +1,6 @@
 specifications:
-  - typename: springhead/normalization
-    type_process: normalization
+  - typename: springhead/dummy
+    type_process: custom
 
     source_type_value: str-no-protobuf
     source_type_value_name_dictionary:
@@ -9,6 +9,18 @@ specifications:
     target_type_value_name_dictionary:
     target_typename: springhead/tfidf
     model_path:
+
+  - typename: springhead/normalization
+    type_process: normalization
+
+    source_type_value: str
+    source_type_value_name_dictionary:
+
+    target_type_value: str
+    target_type_value_name_dictionary:
+    target_typename: springhead/tfidf
+    model_path:
+
   - typename: springhead/tfidf
     type_process: tfidf
 
@@ -19,6 +31,7 @@ specifications:
     target_type_value_name_dictionary: post_tfidf
     target_typename: springhead/clustream
     model_path:
+
   - typename: springhead/clustream
     type_process: clustream
 
