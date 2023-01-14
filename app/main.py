@@ -5,6 +5,8 @@ from fastapi import FastAPI
 from springhead.controllers import main_router
 from springhead.core import Bootstrap, bootstrap, settings
 
+from .dummy import custom_process_logger
+
 logger = logging.getLogger()
 
 app = FastAPI()
@@ -28,6 +30,10 @@ async def startup():
 
     logger = logging.getLogger(__name__)
     # TODO: custom process injection
-    app.state.bootstrap: Bootstrap = await bootstrap()  # type: ignore
+    app.state.bootstrap: Bootstrap = await bootstrap(
+        custom_functions={"springhead/dummy": custom_process_logger}
+    )  # type: ignore
+    # custom_functions: Dict[str, Callable[[Context, Message, Process], None]] = dict(),
+    # custom_value_specs: Dict[str, List[ValueSpec]] = dict(),
 
     logger.info("Bootstrap is done")
