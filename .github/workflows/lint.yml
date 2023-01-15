@@ -1,0 +1,19 @@
+name: Lint test
+
+on:
+  push:
+    branches:
+      - main
+      - development
+
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: lint testing
+        id: lint-test
+        run: |
+          pip install pre-commit
+          pre-commit run
