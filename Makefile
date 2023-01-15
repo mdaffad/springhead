@@ -6,7 +6,7 @@ install:
 
 update_requirements:
 	poetry export --without-hashes -o requirements/requirements.txt
-	poetry export --without-hashes --dev -o requirements/requirements.dev.txt
+	poetry export --without-hashes --with dev -o requirements/requirements.dev.txt
 
 ps:
 	docker compose -f compose/docker-compose.yml --env-file env/.env ps
