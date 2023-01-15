@@ -29,7 +29,6 @@ async def startup():
     init_logger(settings.log_level)
 
     logger = logging.getLogger(__name__)
-    # TODO: custom process injection
     app.state.bootstrap: Bootstrap = await bootstrap(
         custom_functions={"springhead/dummy": custom_process_logger}
     )  # type: ignore
