@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "springhead"
-version = "0.1.0"
+version = "0.2.0"
 description = "Clustering Framework over Apache Flink Stateful Function"
 authors = ["Muhammad Daffa Dinaya <13518141@std.stei.itb.ac.id>"]
 
