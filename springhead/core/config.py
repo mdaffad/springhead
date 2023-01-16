@@ -7,8 +7,6 @@ logger = getLogger(__name__)
 
 
 class Settings(BaseSettings):
-    config_path: str = ""
-    module_path: str = ""
     log_level: str = "DEBUG"
 
     @validator("log_level")

@@ -30,5 +30,4 @@ def normalize(context: Context, message: Message, process: Process) -> None:
         if not is_punct(word) and not is_stopword(word)
     ]
     normalized_text = " ".join(normalized_text)
-    # TODO: alternative target_id = context.address.target_id
     process.send(target_id=process.target_id, value=normalized_text, context=context)
