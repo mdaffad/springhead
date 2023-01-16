@@ -19,8 +19,8 @@ def clustream(context: Context, message: Message, process: Process) -> None:
     message = message["vectorized_value"]
     try:
         clustream = clustream.learn_one(message)
-    except Exception as e:
-        logger.error(str(e))
+    except Exception:
+        # logger.error(str(e))
         return
 
     # Update storage
@@ -29,8 +29,9 @@ def clustream(context: Context, message: Message, process: Process) -> None:
     predict = None
     try:
         predict = clustream.predict_one(message)
-    except Exception as e:
-        logger.error(str(e))
+    except Exception:
+        # logger.error(str(e))
+        return
 
     request = {
         "predict": predict,
