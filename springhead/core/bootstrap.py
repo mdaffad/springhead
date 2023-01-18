@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Callable, Dict, List
 
-from pydantic import FilePath
+from pydantic import AnyHttpUrl, FilePath
 from statefun import Context, Message, RequestReplyHandler, ValueSpec
 
 from springhead.models import Pipeline, Process
@@ -18,6 +18,9 @@ from springhead.service_layer import (
 class Bootstrap:
     pipeline: Pipeline
     handler: RequestReplyHandler
+    side_car_address: AnyHttpUrl = "http://sidecar:8889/springhead"  # type: ignore
+    type_test_case: str = "all-combination"
+    benchmark_mode: bool = False
 
 
 async def bootstrap(
