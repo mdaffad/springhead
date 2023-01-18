@@ -27,6 +27,9 @@ async def bootstrap(
     specification_path: FilePath = "./app/specifications.yml",  # type: ignore
     custom_functions: Dict[str, Callable[[Context, Message, Process], None]] = dict(),
     custom_value_specs: Dict[str, List[ValueSpec]] = dict(),
+    side_car_address: AnyHttpUrl = "http://sidecar:8889/springhead",  # type: ignore
+    type_test_case: str = "all-combination",
+    benchmark_mode: bool = False,
 ) -> Bootstrap:
     specification_builder = SpecificationBuilder(specification_path)  # type: ignore
     specifications = specification_builder.read_spec_file()
@@ -43,4 +46,10 @@ async def bootstrap(
 
     pipeline: Pipeline = PipelineBuilder.build(processes=processes)
     handler = RequestReplyHandler(pipeline.stateful_functions)
-    return Bootstrap(pipeline=pipeline, handler=handler)
+    return Bootstrap(
+        pipeline=pipeline,
+        handler=handler,
+        side_car_address=side_car_address,
+        type_test_case=type_test_case,
+        benchmark_mode=benchmark_mode,
+    )
