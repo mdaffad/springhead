@@ -7,7 +7,7 @@ specifications:
 
     target_type_value: str
     target_type_value_name_dictionary:
-    target_typename: springhead/tfidf
+    target_typename: springhead/normalization
     model_path:
 
   - typename: springhead/normalization
