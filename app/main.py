@@ -30,9 +30,7 @@ async def startup():
 
     logger = logging.getLogger(__name__)
     app.state.bootstrap: Bootstrap = await bootstrap(
-        custom_functions={"springhead/dummy": custom_process_logger}
+        specification_path="./app/specifications.yml",
+        custom_functions={"springhead/dummy": custom_process_logger},
     )  # type: ignore
-    # custom_functions: Dict[str, Callable[[Context, Message, Process], None]] = dict(),
-    # custom_value_specs: Dict[str, List[ValueSpec]] = dict(),
-
     logger.info("Bootstrap is done")
